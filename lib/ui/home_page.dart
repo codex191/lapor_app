@@ -7,11 +7,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lapor'),
-        centerTitle: true,
+        title: const Text('Lapor App'),
+        backgroundColor: Colors.blueAccent,
       ),
-      body: Center(
-        child: Text('Test'),
+      body: const Center(
+        child: Text("Test Haja"),
       ),
     );
   }

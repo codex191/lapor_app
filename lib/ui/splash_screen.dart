@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lapor_app/ui/home_page.dart';
 import 'package:lapor_app/ui/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
