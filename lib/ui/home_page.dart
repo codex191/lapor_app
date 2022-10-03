@@ -21,9 +21,10 @@ class HomePage extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: const <Widget>[
-              MenuTile(title: 'Academy'),
-              MenuTile(title: 'Challenge'),
-              MenuTile(title: 'Event'),
+              MenuTile(title: 'Profil'),
+              MenuTile(title: 'Lihat Aduan Anda'),
+              MenuTile(title: 'Tentang'),
+              Text('Lapor! App V.0.1')
             ],
           ),
         ),

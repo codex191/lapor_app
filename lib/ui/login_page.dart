@@ -17,27 +17,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.grey,
-        elevation: 4,
-        leading: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Image.network(
-              'https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/new-ui-logo.png'),
-        ),
-      ),
-      endDrawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            children: const <Widget>[
-              MenuTile(title: 'Academy'),
-              MenuTile(title: 'Challenge'),
-              MenuTile(title: 'Event'),
-            ],
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
@@ -157,11 +136,11 @@ class _LoginPageState extends State<LoginPage> {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: 'Belum punya akun? Ayo ',
+                  text: 'Belum punya akun? ',
                   style: Theme.of(context).textTheme.bodyText1,
                   children: const [
                     TextSpan(
-                      text: 'daftar',
+                      text: 'Daftar di sini',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold,
@@ -184,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: Theme.of(context).textTheme.bodyText1,
                   children: const [
                     TextSpan(
-                      text: 'syarat & ketentuan Kominfo',
+                      text: 'syarat & ketentuan Aplikasi ini',
                       style: TextStyle(decoration: TextDecoration.underline),
                     ),
                   ],
