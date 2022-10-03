@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MenuTile extends StatelessWidget {
+class MenuTile extends StatefulWidget {
   final String title;
 
   const MenuTile({
@@ -9,10 +9,15 @@ class MenuTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MenuTile> createState() => _MenuTileState();
+}
+
+class _MenuTileState extends State<MenuTile> {
+  @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        title,
+        widget.title,
         style: Theme.of(context)
             .textTheme
             .bodyText1!

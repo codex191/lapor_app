@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/home_page.dart';
-import 'package:lapor_app/widget/menu_tile.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -23,8 +23,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.network(
-                  'https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png'),
+              Image.asset('assets/LaporTrans.png'),
               const SizedBox(
                 height: 20.0,
               ),
@@ -116,7 +115,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return AboutPage();
+                  }));
+                },
                 style: ElevatedButton.styleFrom(
                   side: const BorderSide(color: Colors.black),
                 ),
