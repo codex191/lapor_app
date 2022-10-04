@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/home_page.dart';
 import 'package:lapor_app/ui/register_page.dart';
+import 'package:lapor_app/ui/reset_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -68,13 +69,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(
-                'Lupa Password?',
-                textAlign: TextAlign.right,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(decoration: TextDecoration.underline),
+              InkWell(
+                child: Text(
+                  'Lupa Password?',
+                  textAlign: TextAlign.right,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(decoration: TextDecoration.underline),
+                ),
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const ResetPage())),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
@@ -156,14 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => RegisterPage())),
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: Divider(
-                  color: Colors.black,
-                ),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RegisterPage())),
               ),
             ],
           ),

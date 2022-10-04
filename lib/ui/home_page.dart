@@ -34,8 +34,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: const Center(
-          child: Text('Adukan Aduanmu'),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {}, child: Text('Masukan Aduan Anda')),
+            ],
+          ),
         ));
   }
 }

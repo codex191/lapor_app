@@ -1,5 +1,4 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
 class AduanPage extends StatefulWidget {
   const AduanPage({super.key});
@@ -11,6 +10,8 @@ class AduanPage extends StatefulWidget {
 class _AduanPageState extends State<AduanPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(child: TextField()),
+    );
   }
 }
