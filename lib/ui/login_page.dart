@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/home_page.dart';
+import 'package:lapor_app/ui/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -117,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
               OutlinedButton.icon(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AboutPage();
+                    return const AboutPage();
                   }));
                 },
                 style: ElevatedButton.styleFrom(
@@ -136,40 +138,31 @@ class _LoginPageState extends State<LoginPage> {
                 width: 16,
               ),
               const SizedBox(height: 8),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Belum punya akun? ',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  children: const [
-                    TextSpan(
-                      text: 'Daftar di sini',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+              InkWell(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: 'Belum punya akun? ',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    children: const [
+                      TextSpan(
+                        text: 'Daftar di sini',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RegisterPage())),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Divider(
                   color: Colors.black,
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Dengan melakukan login, Anda setuju dengan ',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  children: const [
-                    TextSpan(
-                      text: 'syarat & ketentuan Aplikasi ini',
-                      style: TextStyle(decoration: TextDecoration.underline),
-                    ),
-                  ],
                 ),
               ),
             ],
