@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
 
 class AduanPage extends StatefulWidget {
   const AduanPage({super.key});
@@ -40,6 +41,8 @@ class _AduanPageState extends State<AduanPage> {
                   const SizedBox(height: 16),
                   TextFormField(
                     initialValue: '',
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       labelText: 'No. Telpon',
                       border: OutlineInputBorder(),
