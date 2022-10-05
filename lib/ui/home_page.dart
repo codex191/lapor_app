@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lapor_app/ui/aduan_page.dart';
 import 'package:lapor_app/widget/menu_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +40,13 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () {}, child: Text('Masukan Aduan Anda')),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const AduanPage();
+                    }));
+                  },
+                  child: const Text('Masukan Aduan Anda')),
             ],
           ),
         ));
