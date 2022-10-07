@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lapor_app/ui/about_page.dart';
-import 'package:lapor_app/ui/home_page.dart';
 import 'package:lapor_app/ui/register_page.dart';
 import 'package:lapor_app/ui/reset_page.dart';
+import 'package:lapor_app/ui/user/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

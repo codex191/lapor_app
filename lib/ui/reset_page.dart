@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lapor_app/ui/about_page.dart';
-import 'package:lapor_app/ui/home_page.dart';
 import 'package:lapor_app/ui/register_page.dart';
+import 'package:lapor_app/ui/user/home_page.dart';
 
 class ResetPage extends StatefulWidget {
   const ResetPage({Key? key}) : super(key: key);

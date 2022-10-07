@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lapor_app/ui/aduan_page.dart';
+import 'package:lapor_app/ui/user/aduan_page.dart';
 import 'package:lapor_app/widget/menu_tile.dart';
 
 class HomePage extends StatefulWidget {

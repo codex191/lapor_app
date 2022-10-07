@@ -34,7 +34,7 @@ class _AduanPageState extends State<AduanPage> {
                   TextFormField(
                     initialValue: '',
                     decoration: InputDecoration(
-                      labelText: 'Nama',
+                      labelText: 'Judul Laporan',
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -53,15 +53,15 @@ class _AduanPageState extends State<AduanPage> {
                     popupProps: PopupProps.menu(
                       showSelectedItems: true,
                     ),
-                    items: ["Brazil", "Italia", "Tunisia", 'Canada'],
+                    items: ["Pengaduan", "Aspirasi", "Permintaan Informasi"],
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
-                        labelText: "Jenis Aduan",
+                        labelText: "Jenis Laporan",
                         hintText: "country in menu mode",
                       ),
                     ),
                     onChanged: print,
-                    selectedItem: "Brazil",
+                    selectedItem: "",
                   ),
                   const SizedBox(height: 16),
                   TextField(
@@ -95,9 +95,11 @@ class _AduanPageState extends State<AduanPage> {
                   TextFormField(
                     initialValue: '',
                     decoration: InputDecoration(
-                      labelText: 'Nama',
+                      labelText: 'Isi Laporan',
                       border: OutlineInputBorder(),
                     ),
+                    maxLines: 5,
+                    minLines: 1,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
