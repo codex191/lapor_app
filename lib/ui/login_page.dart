@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lapor_app/ui/about_page.dart';
+import 'package:lapor_app/ui/admin/home_page_admin.dart';
 import 'package:lapor_app/ui/register_page.dart';
 import 'package:lapor_app/ui/reset_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
@@ -88,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const HomePage();
+                    return const HomePageAdmin();
                   }));
                 },
                 child: const Text(
