@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lapor_app/auth/auth.dart';
 import 'package:lapor_app/ui/login_page.dart';
+import 'package:lapor_app/ui/user/home_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController(text: "");
+    TextEditingController passwordController = TextEditingController(text: "");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -41,7 +45,8 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(
                 height: 16,
               ),
-              const TextField(
+              TextField(
+                controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
@@ -52,6 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 16),
               TextField(
+                controller: passwordController,
                 obscureText: obscureText,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -75,10 +81,34 @@ class _RegisterPageState extends State<RegisterPage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blueAccent,
                 ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const LoginPage();
-                  }));
+                onPressed: () async {
+                  final result = await AuthServices.signUp(
+                      emailController.text, passwordController.text);
+                  if (result != null) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                          'Akun anda telah terdaftar, silahkan masuk kembali.'),
+                      duration: Duration(milliseconds: 4000),
+                    ));
+                  } else if (emailController.text == "" ||
+                      passwordController.text == "") {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Email/Password tidak boleh kosong.'),
+                      duration: Duration(milliseconds: 4000),
+                    ));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content:
+                          Text('Format email salah, silahkan coba kembali.'),
+                      duration: Duration(milliseconds: 4000),
+                    ));
+                  }
                 },
                 child: const Text(
                   'Daftar',
@@ -111,7 +141,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () async {
+                  final result = await AuthServices.signUpWithGoogle();
+                  if (result != null) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   side: const BorderSide(color: Colors.black),
                 ),
