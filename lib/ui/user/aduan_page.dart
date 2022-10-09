@@ -66,6 +66,7 @@ class _AduanPageState extends State<AduanPage> {
                   const SizedBox(height: 16),
                   TextField(
                       controller: date,
+                      keyboardType: TextInputType.datetime,
                       decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_today_rounded),
                           labelText: "Select Date"),
@@ -75,7 +76,6 @@ class _AduanPageState extends State<AduanPage> {
                             initialDate: DateTime.now(),
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2101));
-
                         if (pickdate != null) {
                           setState(() {
                             date.text =

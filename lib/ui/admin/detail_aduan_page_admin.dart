@@ -1,8 +1,8 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class DetailAduanPage extends StatelessWidget {
-  const DetailAduanPage({super.key});
+class DetailAduanAdminPage extends StatelessWidget {
+  const DetailAduanAdminPage({super.key});
 
   @override
   Widget build(BuildContext context) {

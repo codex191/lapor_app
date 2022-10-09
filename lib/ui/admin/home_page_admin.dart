@@ -26,8 +26,8 @@ class _HomePageAdminState extends State<HomePageAdmin> {
               accountEmail: Text('ditonton@dicoding.com'),
             ),
             ListTile(
-              leading: const Icon(Icons.movie),
-              title: const Text('Movies'),
+              leading: const Icon(Icons.comment),
+              title: const Text('Aduan Masuk'),
               onTap: () {
                 Navigator.pop(context);
               },
