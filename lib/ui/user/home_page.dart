@@ -18,73 +18,95 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.blueAccent,
-          elevation: 4,
-          leading: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Image.asset('assets/LogoKominfoTanpaTeks.png'),
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.blueAccent,
+        elevation: 4,
+        leading: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Image.asset('assets/LogoKominfoTanpaTeks.png'),
         ),
-        endDrawer: Drawer(
-          child: Column(
-            children: [
-              const UserAccountsDrawerHeader(
-                currentAccountPicture: CircleAvatar(
-                  backgroundImage:
-                      AssetImage('assets/LogoKominfoTanpaTeks.png'),
-                ),
-                accountName: Text('Brian Agustian'),
-                accountEmail: Text('agustianbrian25@gmail.com'),
+      ),
+      endDrawer: Drawer(
+        child: Column(
+          children: [
+            const UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/LogoKominfoTanpaTeks.png'),
               ),
-              ListTile(
-                leading: const Icon(Icons.face),
-                title: const Text('Profil Anda'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                  leading: const Icon(Icons.comment),
-                  title: const Text('Aduan Anda'),
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DetailAduanPage()))),
-              ListTile(
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const AboutPage())),
-                leading: const Icon(Icons.info_outline),
-                title: const Text('About'),
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
+              accountName: Text('Brian Agustian'),
+              accountEmail: Text('agustianbrian25@gmail.com'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.face),
+              title: const Text('Profil Anda'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+                leading: const Icon(Icons.comment),
+                title: const Text('Aduan Anda'),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SettingsPage())),
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage())),
-              ),
-            ],
-          ),
+                    builder: (context) => DetailAduanPage()))),
+            ListTile(
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const AboutPage())),
+              leading: const Icon(Icons.info_outline),
+              title: const Text('About'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SettingsPage())),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Log Out'),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Apakah Anda yakin untuk keluar?'),
+                        content: Text('Alert Dialog Body Goes Here  ..'),
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text('TIDAK')),
+                          TextButton(
+                              onPressed: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage())),
+                              child: Text('YA')),
+                        ],
+                      );
+                    });
+              },
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const AduanPage();
-                    }));
-                  },
-                  child: const Text('Masukan Aduan Anda')),
-            ],
-          ),
-        ));
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const AduanPage();
+                  }));
+                },
+                child: const Text('Masukan Aduan Anda')),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.help_rounded),
+      ),
+    );
   }
 }

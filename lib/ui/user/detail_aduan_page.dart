@@ -18,9 +18,9 @@ class _DetailAduanPageState extends State<DetailAduanPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.white,
           leading: const BackButton(color: Colors.black),
-          title: Text('Aduan Anda',
+          title: const Text('Aduan Anda',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black))),
       body: SafeArea(

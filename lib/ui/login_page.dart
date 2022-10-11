@@ -124,9 +124,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               OutlinedButton.icon(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const AboutPage();
-                  }));
+                  //Fungsi untuk login via Google
                 },
                 style: ElevatedButton.styleFrom(
                   side: const BorderSide(color: Colors.black),
