@@ -4,6 +4,7 @@ import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/login_page.dart';
 import 'package:lapor_app/ui/user/aduan_page.dart';
 import 'package:lapor_app/ui/user/detail_aduan_page.dart';
+import 'package:lapor_app/ui/user/profile_page.dart';
 import 'package:lapor_app/ui/user/settings_page.dart';
 import 'package:lapor_app/widget/menu_tile.dart';
 
@@ -38,12 +39,10 @@ class _HomePageState extends State<HomePage> {
               accountEmail: Text('agustianbrian25@gmail.com'),
             ),
             ListTile(
-              leading: const Icon(Icons.face),
-              title: const Text('Profil Anda'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
+                leading: const Icon(Icons.face),
+                title: const Text('Profil Anda'),
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProfilePage()))),
             ListTile(
                 leading: const Icon(Icons.comment),
                 title: const Text('Aduan Anda'),

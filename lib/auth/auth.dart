@@ -2,11 +2,10 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:lapor_app/main.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class AuthServices {
-  static FirebaseAuth _auth = FirebaseAuth.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   FirebaseDatabase database = FirebaseDatabase.instance;
 
