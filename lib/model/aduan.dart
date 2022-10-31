@@ -8,8 +8,8 @@ class Aduan {
   String aduan;
   String alamatKej;
   String jenisAduan;
-  String status;
-  List<String> imageGallery;
+  bool status;
+  String imageGallery;
   Aduan({
     required this.id,
     required this.nama,
@@ -23,98 +23,53 @@ class Aduan {
   });
 }
 
-var aduans = [
+List<Aduan> dataAduan = [
   Aduan(
-    id: '001',
-    nama: 'Brian A',
-    noTelp: '081340866989',
-    tgl: '06 Oktober 2022',
-    alamatKej: 'Jl. Hiu Putih VII B No.17',
+    id: DateTime.now().toString(),
+    nama: "Brian",
+    noTelp: "081340866989",
+    tgl: '12-10-2022',
+    alamatKej: 'Jl. Hiu Putih VII B No. 17',
     aduan:
-        "Jalan Berlubang di jalan hiu putih vii b no 17. adanya jalan berlubang ini akan sangat membahayakan pengendara jalan karena lubangnya sangat dalam, semoga pihak terkait dapat memperbaiki masalah tersebut.",
-    jenisAduan: 'Aduan',
-    status: 'Belum Selesai',
-    imageGallery: [
-      'assets/images/jalan-berlubang1.png',
-      'assets/images/jalan-berlubang1.png',
-    ],
+        "Terdapat Jalan berlobang di sekitar jalan hiu putih vii b no 19, harap pihak terkait dapat memperbaiki masalah tersebut",
+    status: false,
+    jenisAduan: "Aduan",
+    imageGallery: 'assets/images/jalan-berlubang1.jpeg',
   ),
   Aduan(
-    id: '002',
-    nama: 'Brian A',
-    noTelp: '081340866989',
-    tgl: '06 Oktober 2022',
-    alamatKej: 'Jl. Hiu Putih VII B No.17',
+    id: DateTime.now().toString(),
+    nama: "Brian",
+    noTelp: "081340866989",
+    tgl: '12-10-2022',
+    alamatKej: 'Jl. Hiu Putih VII B No. 17',
     aduan:
-        "Jalan Berlubang di jalan hiu putih vii b no 17. adanya jalan berlubang ini akan sangat membahayakan pengendara jalan karena lubangnya sangat dalam, semoga pihak terkait dapat memperbaiki masalah tersebut.",
-    jenisAduan: 'Aduan',
-    status: 'Belum Selesai',
-    imageGallery: [
-      'assets/images/jalan-berlubang1.png',
-      'assets/images/jalan-berlubang1.png',
-    ],
+        "Terdapat Jalan berlobang di sekitar jalan hiu putih vii b no 19, harap pihak terkait dapat memperbaiki masalah tersebut",
+    status: false,
+    jenisAduan: "Aduan",
+    imageGallery: 'assets/images/jalan-berlubang1.jpeg',
   ),
   Aduan(
-    id: '003',
-    nama: 'Brian A',
-    noTelp: '081340866989',
-    tgl: '06 Oktober 2022',
-    alamatKej: 'Jl. Hiu Putih VII B No.17',
+    id: DateTime.now().toString(),
+    nama: "Brian",
+    noTelp: "081340866989",
+    tgl: '12-10-2022',
+    alamatKej: 'Jl. Hiu Putih VII B No. 17',
     aduan:
-        "Jalan Berlubang di jalan hiu putih vii b no 17. adanya jalan berlubang ini akan sangat membahayakan pengendara jalan karena lubangnya sangat dalam, semoga pihak terkait dapat memperbaiki masalah tersebut.",
-    jenisAduan: 'Aduan',
-    status: 'Belum Selesai',
-    imageGallery: [
-      'assets/images/jalan-berlubang1.png',
-      'assets/images/jalan-berlubang1.png',
-    ],
-  ),
-];
-
-var aduanss = [
-  Aduan(
-    id: '004',
-    nama: 'Brian A',
-    noTelp: '081340866989',
-    tgl: '06 Oktober 2022',
-    alamatKej: 'Jl. Hiu Putih VII B No.17',
-    aduan:
-        "Jalan Berlubang di jalan hiu putih vii b no 17. adanya jalan berlubang ini akan sangat membahayakan pengendara jalan karena lubangnya sangat dalam, semoga pihak terkait dapat memperbaiki masalah tersebut.",
-    jenisAduan: 'Aduan',
-    status: 'Belum Selesai',
-    imageGallery: [
-      'assets/images/jalan-berlubang1.png',
-      'assets/images/jalan-berlubang1.png',
-    ],
+        "Terdapat Jalan berlobang di sekitar jalan hiu putih vii b no 19, harap pihak terkait dapat memperbaiki masalah tersebut",
+    status: true,
+    jenisAduan: "Aduan",
+    imageGallery: 'assets/images/jalan-berlubang1.jpeg',
   ),
   Aduan(
-    id: '005',
-    nama: 'Brian A',
-    noTelp: '081340866989',
-    tgl: '06 Oktober 2022',
-    alamatKej: 'Jl. Hiu Putih VII B No.17',
+    id: DateTime.now().toString(),
+    nama: "Brian",
+    noTelp: "081340866989",
+    tgl: '12-10-2022',
+    alamatKej: 'Jl. Hiu Putih VII B No. 17',
     aduan:
-        "Jalan Berlubang di jalan hiu putih vii b no 17. adanya jalan berlubang ini akan sangat membahayakan pengendara jalan karena lubangnya sangat dalam, semoga pihak terkait dapat memperbaiki masalah tersebut.",
-    jenisAduan: 'Aduan',
-    status: 'Belum Selesai',
-    imageGallery: [
-      'assets/images/jalan-berlubang1.png',
-      'assets/images/jalan-berlubang1.png',
-    ],
-  ),
-  Aduan(
-    id: '006',
-    nama: 'Brian A',
-    noTelp: '081340866989',
-    tgl: '06 Oktober 2022',
-    alamatKej: 'Jl. Hiu Putih VII B No.17',
-    aduan:
-        "Jalan Berlubang di jalan hiu putih vii b no 17. adanya jalan berlubang ini akan sangat membahayakan pengendara jalan karena lubangnya sangat dalam, semoga pihak terkait dapat memperbaiki masalah tersebut.",
-    jenisAduan: 'Aduan',
-    status: 'Belum Selesai',
-    imageGallery: [
-      'assets/images/jalan-berlubang1.png',
-      'assets/images/jalan-berlubang1.png',
-    ],
+        "Terdapat Jalan berlobang di sekitar jalan hiu putih vii b no 19, harap pihak terkait dapat memperbaiki masalah tersebut",
+    status: false,
+    jenisAduan: "Aduan",
+    imageGallery: 'assets/images/jalan-berlubang1.jpeg',
   ),
 ];

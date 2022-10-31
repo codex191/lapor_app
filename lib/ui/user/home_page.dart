@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -45,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => ProfilePage()))),
             ListTile(
                 leading: const Icon(Icons.comment),
-                title: const Text('Aduan Anda'),
+                title: const Text('Laporan Anda'),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => DetailAduanPage()))),
             ListTile(
@@ -68,8 +70,8 @@ class _HomePageState extends State<HomePage> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Apakah Anda yakin untuk keluar?'),
-                        content: Text('Alert Dialog Body Goes Here  ..'),
+                        title: const Text('Apakah Anda yakin untuk keluar?'),
+                        content: const Text('Alert Dialog Body Goes Here  ..'),
                         actions: <Widget>[
                           TextButton(
                               onPressed: () => Navigator.of(context).pop(),
@@ -97,7 +99,11 @@ class _HomePageState extends State<HomePage> {
                     return const AduanPage();
                   }));
                 },
-                child: const Text('Masukan Aduan Anda')),
+                child: const Text('Masukan Laporan Anda')),
+            // Column(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [Image.asset('assets/LogoUPR.png')],
+            // )
           ],
         ),
       ),

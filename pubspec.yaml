@@ -39,9 +39,12 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.2.1
+  google: ^0.0.1
   google_sign_in: ^5.4.2
   icon_forest: ^1.1.8
+  image_picker: ^0.8.6
   intl: ^0.17.0
+  permission_handler: ^10.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -56,6 +59,7 @@ flutter:
   assets:
     - assets/LaporTrans.png
     - assets/LogoKominfoTanpaTeks.png
+    - assets/logolaporpky.png
     - assets/
     - assets/images/
     # An image asset can refer to one or more resolution-specific "variants", see
@@ -67,10 +71,10 @@ flutter:
     # "family" key with the font family name, and a "fonts" key with a
     # list giving the asset and other descriptors for the font. For
     # example:
-    # fonts:
-    #   - family: Schyler
-    #     fonts:
-    #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
     #       - asset: fonts/Schyler-Italic.ttf
     #         style: italic
     #   - family: Trajan Pro

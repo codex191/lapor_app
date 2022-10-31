@@ -46,6 +46,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             MaterialPageRoute(
                                 builder: (context) => const EditProfilePage())),
                       ),
+                      const SizedBox(height: 16),
+                      Column(
+                        children: [
+                          Text(
+                            'Masuk',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ],

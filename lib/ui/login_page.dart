@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset('assets/LaporTrans.png'),
+              Image.asset('assets/logolaporpky.png'),
               const SizedBox(
                 height: 20.0,
               ),
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blueAccent,
+                  backgroundColor: Colors.blueAccent,
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {

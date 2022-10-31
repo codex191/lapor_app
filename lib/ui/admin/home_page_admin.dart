@@ -22,12 +22,12 @@ class _HomePageAdminState extends State<HomePageAdmin> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/LogoKominfoTanpaTeks.png'),
               ),
-              accountName: Text('Ditonton'),
-              accountEmail: Text('ditonton@dicoding.com'),
+              accountName: Text('Admin'),
+              accountEmail: Text('admin@laporapp.com'),
             ),
             ListTile(
               leading: const Icon(Icons.comment),
-              title: const Text('Aduan Masuk'),
+              title: const Text('Laporan Masuk'),
               onTap: () {
                 Navigator.pop(context);
               },
