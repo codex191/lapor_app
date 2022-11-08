@@ -88,4 +88,30 @@ class AuthController extends GetxController {
       );
     }
   }
+
+  void resetPasswrod(String email) async {
+    if (email != "" && GetUtils.isEmail(email)) {
+      try {
+        await auth.sendPasswordResetEmail(email: email);
+        Get.defaultDialog(
+            title: "Berhasil",
+            middleText: "Kami telah mengirimkan reset password ke $email",
+            onConfirm: () {
+              Get.back();
+              Get.back();
+            },
+            textConfirm: "Ya, saya mengerti.");
+      } catch (e) {
+        Get.defaultDialog(
+          title: "Terjadi Kesalahan",
+          middleText: "Tidak dapat mengirimkan reset password",
+        );
+      }
+    } else {
+      Get.defaultDialog(
+        title: "Terjadi Kesalahan",
+        middleText: "Email tidak valid",
+      );
+    }
+  }
 }

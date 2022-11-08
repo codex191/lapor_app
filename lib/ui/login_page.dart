@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lapor_app/routes/app_routes.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
 import 'package:lapor_app/ui/register_page.dart';
 import 'package:lapor_app/ui/reset_page.dart';
@@ -76,17 +77,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 8),
               InkWell(
-                child: Text(
-                  'Lupa Password?',
-                  textAlign: TextAlign.right,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(decoration: TextDecoration.underline),
-                ),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const ResetPage())),
-              ),
+                  child: Text(
+                    'Lupa Password?',
+                    textAlign: TextAlign.right,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(decoration: TextDecoration.underline),
+                  ),
+                  onTap: () => Get.toNamed(RouteName.Reset)),
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -161,8 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RegisterPage())),
+                onTap: () => Get.toNamed(RouteName.Register),
               ),
             ],
           ),

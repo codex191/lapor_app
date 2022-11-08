@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/register_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
@@ -14,7 +16,8 @@ class ResetPage extends StatefulWidget {
 
 class _ResetPageState extends State<ResetPage> {
   bool obscureText = true;
-
+  final authC = Get.find<AuthController>();
+  final emailC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +47,8 @@ class _ResetPageState extends State<ResetPage> {
               const SizedBox(
                 height: 16,
               ),
-              const TextField(
+              TextField(
+                controller: emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
@@ -54,53 +58,51 @@ class _ResetPageState extends State<ResetPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                obscureText: obscureText,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        obscureText ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        obscureText = !obscureText;
-                      });
-                    },
-                  ),
-                  isDense: true,
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                obscureText: obscureText,
-                decoration: InputDecoration(
-                  hintText: 'Masukan ulang password',
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        obscureText ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        obscureText = !obscureText;
-                      });
-                    },
-                  ),
-                  isDense: true,
-                ),
-              ),
-              const SizedBox(height: 8),
+              // TextField(
+              //   obscureText: obscureText,
+              //   decoration: InputDecoration(
+              //     hintText: 'Password',
+              //     border: const OutlineInputBorder(),
+              //     focusedBorder: const OutlineInputBorder(),
+              //     suffixIcon: IconButton(
+              //       icon: Icon(
+              //           obscureText ? Icons.visibility : Icons.visibility_off),
+              //       onPressed: () {
+              //         setState(() {
+              //           obscureText = !obscureText;
+              //         });
+              //       },
+              //     ),
+              //     isDense: true,
+              //   ),
+              // ),
+              // const SizedBox(height: 16),
+              // TextField(
+              //   obscureText: obscureText,
+              //   decoration: InputDecoration(
+              //     hintText: 'Masukan ulang password',
+              //     border: const OutlineInputBorder(),
+              //     focusedBorder: const OutlineInputBorder(),
+              //     suffixIcon: IconButton(
+              //       icon: Icon(
+              //           obscureText ? Icons.visibility : Icons.visibility_off),
+              //       onPressed: () {
+              //         setState(() {
+              //           obscureText = !obscureText;
+              //         });
+              //       },
+              //     ),
+              //     isDense: true,
+              //   ),
+              // ),
+              // const SizedBox(height: 8),
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blueAccent,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const HomePage();
-                  }));
+                  authC.resetPasswrod(emailC.text);
                 },
                 child: const Text(
                   'Reset Password',
