@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lapor_app/routes/app_pages.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/admin/detail_aduan_page_admin.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
@@ -13,8 +17,10 @@ import 'package:lapor_app/ui/user/edit_profile_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
 import 'package:lapor_app/ui/user/profile_page.dart';
 import 'package:lapor_app/ui/user/settings_page.dart';
+import 'package:lapor_app/utils/loading.dart';
 
 import 'firebase_options.dart';
+import 'routes/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,29 +35,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: "Montserrat",
-      ),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        'homepage': (context) => HomePage(),
-        'loginpage': (context) => LoginPage(),
-        'registerpage': (context) => RegisterPage(),
-        'resetpage': (context) => ResetPage(),
-        'splashscreenpage': (context) => SplashScreen(),
-        'aduanpage': (context) => AduanPage(),
-        'profilepage': (context) => ProfilePage(),
-        'aboutpage': (context) => AboutPage(),
-        'settingspage': (context) => SettingsPage(),
-        'homeadminpage': (context) => HomePageAdmin(),
-        'detailaduanpage': (context) => DetailAduanPage(),
-        'detailaduanadminpage': (context) => DetailAduanAdminPage(),
-        'editprofilepage': (context) => EditProfilePage(),
-      },
-      initialRoute: 'splashscreenpage',
-    );
+    final authC = Get.put(AuthController(), permanent: true);
+    return StreamBuilder<User?>(
+        stream: authC.streamAuthStatus,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            return GetMaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                fontFamily: "Montserrat",
+              ),
+              debugShowCheckedModeBanner: false,
+              initialRoute:
+                  snapshot.data != null ? RouteName.Home : RouteName.Login,
+              //home: snapshot.data != null ? HomePage() : LoginPage(),
+              getPages: AppPages.pages,
+            );
+          }
+          return Loading();
+        });
   }
 }

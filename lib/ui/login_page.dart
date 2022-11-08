@@ -1,7 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lapor_app/ui/about_page.dart';
+import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
 import 'package:lapor_app/ui/register_page.dart';
 import 'package:lapor_app/ui/reset_page.dart';
@@ -16,6 +16,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool obscureText = true;
+  final authC = Get.find<AuthController>();
+  final emailC = TextEditingController();
+  final passC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +44,10 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 16,
               ),
-              const TextField(
+              TextField(
+                controller: emailC,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Email',
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
@@ -52,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 16),
               TextField(
+                controller: passC,
                 obscureText: obscureText,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -87,11 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                 ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const HomePage();
-                  }));
-                },
+                onPressed: () => authC.login(emailC.text, passC.text),
                 child: const Text(
                   'Masuk',
                   style: TextStyle(

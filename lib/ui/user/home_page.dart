@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/model/aduan.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/login_page.dart';
@@ -16,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final authC = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -77,9 +81,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () => Navigator.of(context).pop(),
                               child: Text('TIDAK')),
                           TextButton(
-                              onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginPage())),
+                              onPressed: () => authC.logout(),
                               child: Text('YA')),
                         ],
                       );
