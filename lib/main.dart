@@ -48,7 +48,9 @@ class MyApp extends StatelessWidget {
               ),
               debugShowCheckedModeBanner: false,
               initialRoute:
-                  snapshot.data != null ? RouteName.Home : RouteName.Login,
+                  snapshot.data != null && snapshot.data!.emailVerified == true
+                      ? RouteName.Home
+                      : RouteName.Login,
               //home: snapshot.data != null ? HomePage() : LoginPage(),
               getPages: AppPages.pages,
             );

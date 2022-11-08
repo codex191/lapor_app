@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/ui/login_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
+import '../auth/controller/signup_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -13,11 +16,11 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool obscureText = true;
-
+  final authC = Get.find<AuthController>();
+  final emailC = TextEditingController();
+  final passC = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController(text: "");
-    TextEditingController passwordController = TextEditingController(text: "");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -46,7 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 16,
               ),
               TextField(
-                controller: emailController,
+                controller: emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
@@ -57,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 16),
               TextField(
-                controller: passwordController,
+                controller: passC,
                 obscureText: obscureText,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -81,35 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blueAccent,
                 ),
-                onPressed: () async {
-                  final result = await AuthServices.signUp(
-                      emailController.text, passwordController.text);
-                  if (result != null) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          'Akun anda telah terdaftar, silahkan masuk kembali.'),
-                      duration: Duration(milliseconds: 4000),
-                    ));
-                  } else if (emailController.text == "" ||
-                      passwordController.text == "") {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Email/Password tidak boleh kosong.'),
-                      duration: Duration(milliseconds: 4000),
-                    ));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content:
-                          Text('Format email salah, silahkan coba kembali.'),
-                      duration: Duration(milliseconds: 4000),
-                    ));
-                  }
-                },
+                onPressed: () => authC.signup(emailC.text, passC.text),
                 child: const Text(
                   'Daftar',
                   style: TextStyle(
