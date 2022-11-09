@@ -1,11 +1,40 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<User?> get streamAuthStatus => auth.authStateChanges();
+
+  void loginGoogle() async {
+    try {
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      GoogleSignInAccount? myAcc = await googleSignIn.signIn();
+      if (myAcc != null) {
+        print(myAcc);
+        final GoogleSignInAuthentication? googleAuth =
+            await myAcc.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+
+        await FirebaseAuth.instance.signInWithCredential(credential);
+        Get.offAllNamed(RouteName.Home);
+      } else {
+        throw "Belum memilih akun google";
+      }
+      print(myAcc);
+    } catch (error) {
+      Get.defaultDialog(
+        title: "Terjadi Kesalahan!",
+        middleText: error.toString(),
+      );
+    }
+  }
 
   Future<void> login(String email, String password) async {
     try {

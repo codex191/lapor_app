@@ -123,9 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               OutlinedButton.icon(
-                onPressed: () {
-                  //Fungsi untuk login via Google
-                },
+                onPressed: () => authC.loginGoogle(),
                 style: ElevatedButton.styleFrom(
                   side: const BorderSide(color: Colors.black),
                 ),
