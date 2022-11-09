@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) {
                       return AlertDialog(
                         title: const Text('Apakah Anda yakin untuk keluar?'),
-                        content: const Text('Alert Dialog Body Goes Here  ..'),
+                        content: const Text('Tekan Ya jika ingin logout'),
                         actions: <Widget>[
                           TextButton(
                               onPressed: () => Navigator.of(context).pop(),

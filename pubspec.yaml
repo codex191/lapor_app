@@ -30,15 +30,17 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   carousel_slider: ^4.1.1
+  cloud_firestore: ^4.0.4
   cupertino_icons: ^1.0.2
   dropdown_search: ^5.0.3
-  firebase_auth: ^3.11.2
-  firebase_core: ^1.24.0
-  firebase_database: ^9.1.7
+  firebase_auth: ^4.1.1
+  firebase_core: ^2.1.1
+  firebase_database: ^10.0.4
   fl_chart: ^0.55.2
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.2.1
+  get: ^4.6.5
   google: ^0.0.1
   google_sign_in: ^5.4.2
   icon_forest: ^1.1.8
@@ -46,7 +48,6 @@ dependencies:
   intl: ^0.17.0
   permission_handler: ^10.1.0
   syncfusion_flutter_charts: ^20.3.52
-  get: ^4.6.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
