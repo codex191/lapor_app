@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:lapor_app/auth/auth.dart';
-import 'package:lapor_app/auth/auth_controller.dart';
-import 'package:lapor_app/ui/login_page.dart';
-import 'package:lapor_app/ui/user/home_page.dart';
-import '../auth/controller/signup_controller.dart';
 
-class RegisterPage extends GetView<SignupController> {
+import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
+
+import '../controllers/login_admin_controller.dart';
+
+class LoginAdminView extends GetView<LoginAdminController> {
   // bool obscureText = true;
-  final regC = Get.put(SignupController());
+  final logC = Get.put(LoginAdminController());
   final authC = Get.find<AuthController>();
   // final emailC = TextEditingController();
   // final passC = TextEditingController();
@@ -33,7 +32,7 @@ class RegisterPage extends GetView<SignupController> {
                 height: 20.0,
               ),
               Text(
-                'Register',
+                'Login Admin',
                 style: Theme.of(context)
                     .textTheme
                     .headline4!
@@ -78,75 +77,20 @@ class RegisterPage extends GetView<SignupController> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blueAccent,
                 ),
-                onPressed: () =>
-                    authC.signup(controller.emailC.text, controller.passC.text),
+                onPressed: () => authC.adminLogin(
+                    controller.emailC.text, controller.passC.text),
                 child: const Text(
-                  'Daftar',
+                  'Masuk',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const Divider(
-                      color: Colors.black,
-                    ),
-                    Positioned(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 20),
-                        color: Colors.white,
-                        child: Text(
-                          'atau',
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              OutlinedButton.icon(
-                onPressed: () => authC.loginGoogle(),
-                style: ElevatedButton.styleFrom(
-                  side: const BorderSide(color: Colors.black),
-                ),
-                icon: const FaIcon(
-                  FontAwesomeIcons.google,
-                  color: Colors.grey,
-                ),
-                label: Text(
-                  'Masuk dengan Google',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              ),
               const SizedBox(
                 width: 16,
               ),
               const SizedBox(height: 8),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: Divider(
-                  color: Colors.black,
-                ),
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Dengan melakukan daftar, Anda setuju dengan ',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  children: const [
-                    TextSpan(
-                      text: 'syarat & ketentuan Aplikasi ini',
-                      style: TextStyle(decoration: TextDecoration.underline),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

@@ -71,16 +71,34 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   )),
               const SizedBox(height: 8),
-              InkWell(
-                  child: Text(
-                    'Lupa Password?',
-                    textAlign: TextAlign.right,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .copyWith(decoration: TextDecoration.underline),
-                  ),
-                  onTap: () => Get.toNamed(RouteName.Reset)),
+              Stack(children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                      child: Text(
+                        'Lupa Password?',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(decoration: TextDecoration.underline),
+                      ),
+                      onTap: () => Get.toNamed(RouteName.Reset)),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: InkWell(
+                      child: Text(
+                        'Masuk Sebagai Admin',
+                        textAlign: TextAlign.right,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(decoration: TextDecoration.underline),
+                      ),
+                      onTap: () => Get.toNamed(RouteName.ADMINLOGIN)),
+                ),
+              ]),
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

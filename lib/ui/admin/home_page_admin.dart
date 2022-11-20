@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
@@ -26,6 +29,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     _SalesData('Dec', 40),
   ];
 
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,12 +73,12 @@ class _HomePageAdminState extends State<HomePageAdmin> {
       drawer: Drawer(
         child: Column(
           children: [
-            const UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/LogoKominfoTanpaTeks.png'),
               ),
               accountName: Text('Admin'),
-              accountEmail: Text('admin@laporapp.com'),
+              accountEmail: Text('${FirebaseAuth.instance.currentUser!.email}'),
             ),
             ListTile(
               leading: const Icon(Icons.comment),
@@ -93,6 +97,28 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                   MaterialPageRoute(builder: (context) => const AboutPage())),
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Log Out'),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Apakah Anda yakin untuk keluar?'),
+                        content: const Text('Tekan Ya jika ingin logout'),
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text('TIDAK')),
+                          TextButton(
+                              onPressed: () => authC.logout(),
+                              child: Text('YA')),
+                        ],
+                      );
+                    });
+              },
             ),
           ],
         ),

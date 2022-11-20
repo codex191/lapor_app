@@ -13,4 +13,7 @@ abstract class RouteName {
   static const HomeAdmin = '/home-page-admin';
   static const DetailAduanAdmin = '/detail-aduan-page-admin';
   static const AduanAnda = '/aduan-anda-page';
+  static const INSTANSI = '/instansi-page';
+  static const LAPORAN = '/laporan-page';
+  static const ADMINLOGIN = '/admin-login';
 }

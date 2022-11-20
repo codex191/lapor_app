@@ -143,4 +143,38 @@ class AuthController extends GetxController {
       );
     }
   }
+
+  Future<void> adminLogin(String email, String password) async {
+    try {
+      UserCredential myUser = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      if (email == "admin@laporpky.com" && password == "admin112") {
+        Get.offAllNamed(RouteName.HomeAdmin);
+      } else {
+        Get.defaultDialog(
+          title: "Maaf",
+          middleText: "Anda bukan admin",
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        // print('No user found for that email.');
+        Get.defaultDialog(
+          title: "Terjadi Kesalahan!",
+          middleText: "Tidak ada pengguna dengan email tersebut",
+        );
+      } else if (e.code == 'wrong-password') {
+        // print('Wrong password provided for that user.');
+        Get.defaultDialog(
+          title: "Terjadi Kesalahan!",
+          middleText: "Password Anda salah",
+        );
+      }
+    } catch (e) {
+      Get.defaultDialog(
+        title: "Terjadi Kesalahan!",
+        middleText: "Tidak dapat login",
+      );
+    }
+  }
 }
