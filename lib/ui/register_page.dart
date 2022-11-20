@@ -7,18 +7,12 @@ import 'package:lapor_app/ui/login_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
 import '../auth/controller/signup_controller.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
-  @override
-  State<RegisterPage> createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  bool obscureText = true;
+class RegisterPage extends GetView<SignupController> {
+  // bool obscureText = true;
+  final regC = Get.put(SignupController());
   final authC = Get.find<AuthController>();
-  final emailC = TextEditingController();
-  final passC = TextEditingController();
+  // final emailC = TextEditingController();
+  // final passC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 16,
               ),
               TextField(
-                controller: emailC,
+                controller: controller.emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
@@ -59,32 +53,33 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                controller: passC,
-                obscureText: obscureText,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        obscureText ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        obscureText = !obscureText;
-                      });
-                    },
-                  ),
-                  isDense: true,
-                ),
-              ),
+              Obx(() => TextField(
+                    controller: controller.passC,
+                    obscureText: controller.obscureText.value,
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(controller.obscureText.value
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          controller.obscureText.value =
+                              !controller.obscureText.value;
+                        },
+                      ),
+                      isDense: true,
+                    ),
+                  )),
               const SizedBox(height: 8),
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blueAccent,
                 ),
-                onPressed: () => authC.signup(emailC.text, passC.text),
+                onPressed: () =>
+                    authC.signup(controller.emailC.text, controller.passC.text),
                 child: const Text(
                   'Daftar',
                   style: TextStyle(

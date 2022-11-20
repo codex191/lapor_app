@@ -1,23 +1,14 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
-import 'package:lapor_app/ui/about_page.dart';
-import 'package:lapor_app/ui/register_page.dart';
-import 'package:lapor_app/ui/user/home_page.dart';
+import 'package:lapor_app/auth/controller/reset_controller.dart';
 
-class ResetPage extends StatefulWidget {
-  const ResetPage({Key? key}) : super(key: key);
-
-  @override
-  State<ResetPage> createState() => _ResetPageState();
-}
-
-class _ResetPageState extends State<ResetPage> {
+class ResetPage extends GetView<ResetController> {
   bool obscureText = true;
+  final resC = Get.put(ResetController());
   final authC = Get.find<AuthController>();
-  final emailC = TextEditingController();
+  // final emailC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +39,7 @@ class _ResetPageState extends State<ResetPage> {
                 height: 16,
               ),
               TextField(
-                controller: emailC,
+                controller: controller.emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
@@ -102,7 +93,7 @@ class _ResetPageState extends State<ResetPage> {
                   primary: Colors.blueAccent,
                 ),
                 onPressed: () {
-                  authC.resetPasswrod(emailC.text);
+                  authC.resetPasswrod(controller.emailC.text);
                 },
                 child: const Text(
                   'Reset Password',
