@@ -12,4 +12,5 @@ abstract class RouteName {
   static const Settings = '/settings-page';
   static const HomeAdmin = '/home-page-admin';
   static const DetailAduanAdmin = '/detail-aduan-page-admin';
+  static const AduanAnda = '/aduan-anda-page';
 }

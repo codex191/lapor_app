@@ -41,6 +41,7 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^10.2.1
   get: ^4.6.5
+  get_cli: ^1.8.1
   google: ^0.0.1
   google_sign_in: ^5.4.2
   icon_forest: ^1.1.8

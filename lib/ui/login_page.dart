@@ -2,24 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lapor_app/auth/controller/login_controller.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
 import 'package:lapor_app/ui/register_page.dart';
 import 'package:lapor_app/ui/reset_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  bool obscureText = true;
+class LoginPage extends GetView<LoginController> {
+  // bool obscureText = true;
+  final logC = Get.put(LoginController());
   final authC = Get.find<AuthController>();
-  final emailC = TextEditingController();
-  final passC = TextEditingController();
+  // final emailC = TextEditingController();
+  // final passC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 16,
               ),
               TextField(
-                controller: emailC,
+                controller: controller.emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: 'Email',
@@ -56,25 +51,25 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              TextField(
-                controller: passC,
-                obscureText: obscureText,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        obscureText ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        obscureText = !obscureText;
-                      });
-                    },
-                  ),
-                  isDense: true,
-                ),
-              ),
+              Obx(() => TextField(
+                    controller: controller.passC,
+                    obscureText: controller.obscureText.value,
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      border: const OutlineInputBorder(),
+                      focusedBorder: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(controller.obscureText.value
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          controller.obscureText.value =
+                              !controller.obscureText.value;
+                        },
+                      ),
+                      isDense: true,
+                    ),
+                  )),
               const SizedBox(height: 8),
               InkWell(
                   child: Text(
@@ -91,7 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                 ),
-                onPressed: () => authC.login(emailC.text, passC.text),
+                onPressed: () =>
+                    authC.login(controller.emailC.text, controller.passC.text),
                 child: const Text(
                   'Masuk',
                   style: TextStyle(

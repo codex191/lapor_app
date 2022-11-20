@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lapor_app/auth/controller/theme_controller.dart';
 import 'package:lapor_app/routes/app_pages.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/admin/detail_aduan_page_admin.dart';
@@ -36,24 +37,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authC = Get.put(AuthController(), permanent: true);
+    final themeC = Get.put(ThemeController());
     return StreamBuilder<User?>(
         stream: authC.streamAuthStatus,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            return GetMaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-                fontFamily: "Montserrat",
-              ),
-              debugShowCheckedModeBanner: false,
-              initialRoute:
-                  snapshot.data != null && snapshot.data!.emailVerified == true
+            return Obx(() => GetMaterialApp(
+                  title: 'Flutter Demo',
+                  // theme: ThemeData(
+                  //   primarySwatch: Colors.blue,
+                  //   fontFamily: "Montserrat",
+                  // ),
+                  theme: themeC.isDark.value
+                      ? ThemeData.dark()
+                      : ThemeData.light(),
+                  debugShowCheckedModeBanner: false,
+                  initialRoute: snapshot.data != null &&
+                          snapshot.data!.emailVerified == true
                       ? RouteName.Home
                       : RouteName.Login,
-              //home: snapshot.data != null ? HomePage() : LoginPage(),
-              getPages: AppPages.pages,
-            );
+                  //home: snapshot.data != null ? HomePage() : LoginPage(),
+                  getPages: AppPages.pages,
+                ));
           }
           return Loading();
         });

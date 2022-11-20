@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lapor_app/app/modules/aduan_anda/views/aduan_anda_view.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/admin/detail_aduan_page_admin.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
@@ -67,6 +68,10 @@ class AppPages {
     GetPage(
       name: RouteName.DetailAduanAdmin,
       page: () => DetailAduanAdminPage(),
+    ),
+    GetPage(
+      name: RouteName.AduanAnda,
+      page: () => AduanAndaView(),
     ),
   ];
 }

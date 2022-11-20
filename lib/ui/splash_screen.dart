@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lapor_app/routes/app_routes.dart';
 import 'package:lapor_app/ui/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,8 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
+      Get.offAllNamed(RouteName.Login);
     });
   }
 

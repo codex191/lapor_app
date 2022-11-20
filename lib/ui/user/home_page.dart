@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
@@ -37,12 +38,13 @@ class _HomePageState extends State<HomePage> {
       endDrawer: Drawer(
         child: Column(
           children: [
-            const UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/LogoKominfoTanpaTeks.png'),
               ),
-              accountName: Text('Brian Agustian'),
-              accountEmail: Text('agustianbrian25@gmail.com'),
+              accountName:
+                  Text('${FirebaseAuth.instance.currentUser!.displayName}'),
+              accountEmail: Text('${FirebaseAuth.instance.currentUser!.email}'),
             ),
             ListTile(
                 leading: const Icon(Icons.face),
@@ -98,7 +100,7 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const AduanPage();
+                    return AduanPage();
                   }));
                 },
                 child: const Text('Masukan Laporan Anda')),
