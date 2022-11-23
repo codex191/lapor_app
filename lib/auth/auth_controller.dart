@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,11 +8,17 @@ class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Stream<User?> get streamAuthStatus => auth.authStateChanges();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  GoogleSignInAccount? currentUser;
+  UserCredential? userCredential;
 
   void loginGoogle() async {
     try {
       GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
       GoogleSignInAccount? myAcc = await googleSignIn.signIn();
+      final isSignIn = await googleSignIn.isSignedIn();
+      await googleSignIn.signIn().then((value) => currentUser = value);
       if (myAcc != null) {
         print(myAcc);
         final GoogleSignInAuthentication? googleAuth =
@@ -22,7 +29,21 @@ class AuthController extends GetxController {
           idToken: googleAuth?.idToken,
         );
 
-        await FirebaseAuth.instance.signInWithCredential(credential);
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) => userCredential = value);
+
+        CollectionReference users = firestore.collection('users');
+        users.doc(currentUser?.email).set({
+          "uid": userCredential?.user?.uid,
+          "name": currentUser?.displayName,
+          "email": currentUser?.email,
+          "photoUrl": currentUser?.photoUrl,
+          "createAt":
+              userCredential?.user?.metadata.creationTime?.toIso8601String(),
+          "lastSignInTime":
+              userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+        });
         Get.offAllNamed(RouteName.Home);
       } else {
         throw "Belum memilih akun google";
@@ -42,6 +63,17 @@ class AuthController extends GetxController {
           email: email, password: password);
 
       if (myUser.user!.emailVerified) {
+        CollectionReference users = firestore.collection('users');
+        users.doc(currentUser?.email).set({
+          "uid": userCredential?.user?.uid,
+          "name": currentUser?.displayName,
+          "email": currentUser?.email,
+          "photoUrl": currentUser?.photoUrl,
+          "createAt":
+              userCredential?.user?.metadata.creationTime?.toIso8601String(),
+          "lastSignInTime":
+              userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+        });
         Get.offAllNamed(RouteName.Home);
       } else {
         Get.defaultDialog(

@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/LogoKominfoTanpaTeks.png'),
+                backgroundImage:
+                    AssetImage(FirebaseAuth.instance.currentUser!.photoURL!),
               ),
               accountName:
                   Text('${FirebaseAuth.instance.currentUser!.displayName}'),
