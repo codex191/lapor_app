@@ -69,27 +69,37 @@ class _HomePageState extends State<HomePage> {
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const SettingsPage())),
             ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Log Out'),
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text('Apakah Anda yakin untuk keluar?'),
-                        content: const Text('Tekan Ya jika ingin logout'),
-                        actions: <Widget>[
-                          TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Text('TIDAK')),
-                          TextButton(
-                              onPressed: () => authC.logout(),
-                              child: Text('YA')),
-                        ],
-                      );
-                    });
-              },
+            Expanded(
+              child: ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log Out'),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Apakah Anda yakin untuk keluar?'),
+                          content: const Text('Tekan Ya jika ingin logout'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: Text('TIDAK')),
+                            TextButton(
+                                onPressed: () => authC.logout(),
+                                child: Text('YA')),
+                          ],
+                        );
+                      });
+                },
+              ),
+            ),
+            Container(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Lapor! Palangka Raya"),
+                    Text("v.1.0.0"),
+                  ]),
             ),
           ],
         ),
