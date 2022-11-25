@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/model/aduan.dart';
+import 'package:lapor_app/routes/app_routes.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/login_page.dart';
 import 'package:lapor_app/ui/user/aduan_page.dart';
@@ -39,35 +40,29 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage:
-                    AssetImage(FirebaseAuth.instance.currentUser!.photoURL!),
-              ),
-              accountName:
-                  Text('${FirebaseAuth.instance.currentUser!.displayName}'),
-              accountEmail: Text('${FirebaseAuth.instance.currentUser!.email}'),
+              // currentAccountPicture: CircleAvatar(
+              //   backgroundImage: Image.network(authC.user.photoUrl!),
+              // ),
+              accountName: Text('${authC.user.name}'),
+              accountEmail: Text('${authC.user.email}'),
             ),
             ListTile(
                 leading: const Icon(Icons.face),
                 title: const Text('Profil Anda'),
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ProfilePage()))),
+                onTap: () => Get.toNamed(RouteName.Profile)),
             ListTile(
                 leading: const Icon(Icons.comment),
                 title: const Text('Laporan Anda'),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => DetailAduanPage()))),
+                onTap: () => Get.toNamed(RouteName.AduanAnda)),
             ListTile(
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const AboutPage())),
+              onTap: () => Get.toNamed(RouteName.About),
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SettingsPage())),
+              onTap: () => Get.toNamed(RouteName.Settings),
             ),
             Expanded(
               child: ListTile(

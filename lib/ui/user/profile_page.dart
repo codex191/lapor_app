@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/ui/user/edit_profile_page.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 
@@ -12,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,13 +34,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     width: 150,
                     height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.black38,
-                        borderRadius: BorderRadius.circular(100),
-                        image: DecorationImage(
-                            image:
-                                AssetImage("assets/LogoKominfoTanpaTeks.png"),
-                            fit: BoxFit.cover)),
+                    child: authC.user.photoUrl == "noimage"
+                        ? Image.asset(
+                            "assets/LogoKominfoTanpaTeks.png",
+                            fit: BoxFit.cover,
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(200),
+                            child: Image.network(
+                              authC.user.photoUrl!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                   )
                 ],
               ),
@@ -50,13 +57,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("${FirebaseAuth.instance.currentUser!.displayName}",
+                      Text("${authC.user.name}",
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           )),
                       Text(
-                        "${FirebaseAuth.instance.currentUser!.email}",
+                        "${authC.user.email}",
                         style: TextStyle(fontSize: 18),
                       ),
                     ],

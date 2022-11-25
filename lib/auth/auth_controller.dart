@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lapor_app/app/data/models/user_model.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 
 class AuthController extends GetxController {
@@ -11,6 +12,8 @@ class AuthController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   GoogleSignInAccount? currentUser;
   UserCredential? userCredential;
+
+  UserModel user = UserModel();
 
   void loginGoogle() async {
     try {
@@ -34,16 +37,39 @@ class AuthController extends GetxController {
             .then((value) => userCredential = value);
 
         CollectionReference users = firestore.collection('users');
-        users.doc(currentUser?.email).set({
-          "uid": userCredential?.user?.uid,
-          "name": currentUser?.displayName,
-          "email": currentUser?.email,
-          "photoUrl": currentUser?.photoUrl,
-          "createAt":
-              userCredential?.user?.metadata.creationTime?.toIso8601String(),
-          "lastSignInTime":
-              userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
-        });
+
+        final checkUser = await users.doc(currentUser!.email).get();
+
+        if (checkUser.data() == null) {
+          users.doc(currentUser?.email).set({
+            "uid": userCredential?.user?.uid,
+            "name": currentUser?.displayName,
+            "email": currentUser?.email,
+            "photoUrl": currentUser?.photoUrl ?? "noimage",
+            "createAt":
+                userCredential?.user?.metadata.creationTime?.toIso8601String(),
+            "lastSignInTime": userCredential?.user?.metadata.lastSignInTime
+                ?.toIso8601String(),
+          });
+        } else {
+          users.doc(currentUser?.email).update({
+            "lastSignInTime": userCredential?.user?.metadata.lastSignInTime
+                ?.toIso8601String(),
+          });
+        }
+
+        final currUser = await users.doc(currentUser?.email).get();
+        final currUserData = currUser.data() as Map<String, dynamic>;
+
+        user = UserModel(
+          uid: currUserData["uid"],
+          name: currUserData["name"],
+          email: currUserData["email"],
+          photoUrl: currUserData["photoUrl"],
+          createAt: currUserData["createAt"],
+          lastSignInTime: currUserData["lastsignInTime"],
+        );
+
         Get.offAllNamed(RouteName.Home);
       } else {
         throw "Belum memilih akun google";
@@ -64,7 +90,7 @@ class AuthController extends GetxController {
 
       if (myUser.user!.emailVerified) {
         CollectionReference users = firestore.collection('users');
-        users.doc(currentUser?.email).set({
+        users.doc(currentUser!.email).set({
           "uid": userCredential?.user?.uid,
           "name": currentUser?.displayName,
           "email": currentUser?.email,
@@ -74,6 +100,7 @@ class AuthController extends GetxController {
           "lastSignInTime":
               userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
         });
+
         Get.offAllNamed(RouteName.Home);
       } else {
         Get.defaultDialog(
