@@ -1,27 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
-import 'package:lapor_app/model/aduan.dart';
+import 'package:lapor_app/auth/controller/home_controller.dart';
 import 'package:lapor_app/routes/app_routes.dart';
-import 'package:lapor_app/ui/about_page.dart';
-import 'package:lapor_app/ui/login_page.dart';
 import 'package:lapor_app/ui/user/aduan_page.dart';
-import 'package:lapor_app/ui/user/detail_aduan_page.dart';
-import 'package:lapor_app/ui/user/profile_page.dart';
-import 'package:lapor_app/ui/user/settings_page.dart';
-import 'package:lapor_app/widget/menu_tile.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends GetView<HomePageController> {
   final authC = Get.find<AuthController>();
-
+  final homeC = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -43,8 +29,8 @@ class _HomePageState extends State<HomePage> {
               // currentAccountPicture: CircleAvatar(
               //   backgroundImage: Image.network(authC.user.photoUrl!),
               // ),
-              accountName: Text('${authC.user.name}'),
-              accountEmail: Text('${authC.user.email}'),
+              accountName: Obx(() => Text('${authC.user.value.name}')),
+              accountEmail: Text('${authC.user.value.email}'),
             ),
             ListTile(
                 leading: const Icon(Icons.face),

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-class EditProfilePageController extends GetxController {
+class ProfilePageController extends GetxController {
   final RxBool obscureText = true.obs;
   final RxBool validate = true.obs;
   late TextEditingController nameC;

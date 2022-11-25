@@ -14,6 +14,7 @@ class EditProfilePage extends GetView<EditProfilePageController> {
 
   @override
   Widget build(BuildContext context) {
+    // controller.nameC.text = authC.user.value.name!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -29,34 +30,40 @@ class EditProfilePage extends GetView<EditProfilePageController> {
                 children: [
                   CircleAvatar(),
                   const SizedBox(height: 16),
-                  Obx(() => TextFormField(
-                        initialValue: '',
-                        decoration: InputDecoration(
-                          labelText: 'Nama Baru',
-                          border: OutlineInputBorder(),
-                          errorText: controller.validate.value
-                              ? 'Form tidak boleh kosong'
-                              : null,
-                        ),
-                      )),
+                  TextFormField(
+                    controller: controller.nameC,
+                    textInputAction: TextInputAction.done,
+                    onEditingComplete: () {
+                      authC.changeProfile(controller.nameC.text);
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Nama Baru',
+                      border: OutlineInputBorder(),
+                      errorText: controller.validate.value
+                          ? 'Form tidak boleh kosong'
+                          : null,
+                    ),
+                  ),
                   const SizedBox(height: 16),
-                  Obx(() => ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blueAccent,
-                        ),
-                        onPressed: () {
-                          controller.nameC.text.isEmpty
-                              ? controller.validate.value = true
-                              : controller.validate.value = false;
-                        },
-                        child: const Text(
-                          'Edit Profil',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      controller.nameC.text.isEmpty
+                          ? controller.validate.value = true
+                          : controller.validate.value = false;
+
+                      authC.changeProfile(controller.nameC.text);
+                    },
+                    child: const Text(
+                      'Edit Profil',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

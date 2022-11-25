@@ -2,18 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lapor_app/auth/controller/profile_controller.dart';
 import 'package:lapor_app/ui/user/edit_profile_page.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePage extends GetView<ProfilePageController> {
   final authC = Get.find<AuthController>();
+  final profC = Get.put(ProfilePageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     width: 150,
                     height: 150,
-                    child: authC.user.photoUrl == "noimage"
+                    child: authC.user.value.photoUrl == "noimage"
                         ? Image.asset(
                             "assets/LogoKominfoTanpaTeks.png",
                             fit: BoxFit.cover,
@@ -42,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(200),
                             child: Image.network(
-                              authC.user.photoUrl!,
+                              authC.user.value.photoUrl!,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -57,13 +52,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("${authC.user.name}",
+                      Obx(() => Text("${authC.user.value.name}",
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                          )),
+                          ))),
                       Text(
-                        "${authC.user.email}",
+                        "${authC.user.value.email}",
                         style: TextStyle(fontSize: 18),
                       ),
                     ],
@@ -88,6 +83,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ]),
               ),
+            ),
+            const SizedBox(
+              height: 16,
             ),
             Container(
               child: Column(

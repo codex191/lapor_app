@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lapor_app/app/data/models/user_model.dart';
@@ -13,7 +14,7 @@ class AuthController extends GetxController {
   GoogleSignInAccount? currentUser;
   UserCredential? userCredential;
 
-  UserModel user = UserModel();
+  Rx<UserModel> user = UserModel().obs;
 
   void loginGoogle() async {
     try {
@@ -61,14 +62,14 @@ class AuthController extends GetxController {
         final currUser = await users.doc(currentUser?.email).get();
         final currUserData = currUser.data() as Map<String, dynamic>;
 
-        user = UserModel(
+        user(UserModel(
           uid: currUserData["uid"],
           name: currUserData["name"],
           email: currUserData["email"],
           photoUrl: currUserData["photoUrl"],
           createAt: currUserData["createAt"],
           lastSignInTime: currUserData["lastsignInTime"],
-        );
+        ));
 
         Get.offAllNamed(RouteName.Home);
       } else {
@@ -235,5 +236,33 @@ class AuthController extends GetxController {
         middleText: "Tidak dapat login",
       );
     }
+  }
+
+  // Profle update
+  void changeProfile(String name) {
+    CollectionReference users = firestore.collection('users');
+
+    users.doc(currentUser?.email).update({
+      "name": name,
+      "lastSignInTime":
+          userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+    });
+
+    //Update model
+    user.update((user) {
+      user!.name = name;
+      user.lastSignInTime =
+          userCredential?.user?.metadata.lastSignInTime?.toIso8601String();
+    });
+    user.refresh();
+
+    Get.defaultDialog(
+        title: "Berhasil",
+        middleText: "Profil berhasil diubah",
+        onConfirm: () async {
+          Get.back();
+          Get.back();
+        },
+        textConfirm: "Kembali");
   }
 }
