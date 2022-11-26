@@ -22,29 +22,29 @@ class ProfilePage extends GetView<ProfilePageController> {
       body: Center(
         child: SafeArea(
           child: Column(children: [
-            Container(
-              margin: EdgeInsets.all(15),
-              child: Column(
-                children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    child: authC.user.value.photoUrl == "noimage"
-                        ? Image.asset(
-                            "assets/LogoKominfoTanpaTeks.png",
-                            fit: BoxFit.cover,
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(200),
-                            child: Image.network(
-                              authC.user.value.photoUrl!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                  )
-                ],
-              ),
-            ),
+            Obx(() => Container(
+                  margin: EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 150,
+                        height: 150,
+                        child: authC.user.value.photoUrl == "noimage"
+                            ? Image.asset(
+                                "assets/LogoKominfoTanpaTeks.png",
+                                fit: BoxFit.cover,
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(200),
+                                child: Image.network(
+                                  authC.user.value.photoUrl!,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                      )
+                    ],
+                  ),
+                )),
             Expanded(
               child: Container(
                 margin: EdgeInsets.all(15),

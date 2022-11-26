@@ -265,4 +265,18 @@ class AuthController extends GetxController {
         },
         textConfirm: "Kembali");
   }
+
+  void updatePhotoUrl(String url) async {
+    CollectionReference users = firestore.collection('users');
+
+    await users.doc(currentUser!.email).update({"photoUrl": url});
+
+    user.update((user) {
+      user!.photoUrl = url;
+    });
+
+    user.refresh();
+    Get.defaultDialog(
+        title: "sukses", middleText: "update foto profile sukses");
+  }
 }

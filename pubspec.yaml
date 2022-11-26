@@ -20,11 +20,12 @@ dependencies:
   google: ^0.0.1
   google_sign_in: ^5.4.2
   icon_forest: ^1.1.8
-  image_picker: ^0.8.6
+  image_picker: 0.8.6
   intl: ^0.17.0
   permission_handler: ^10.1.0
   syncfusion_flutter_charts: ^20.3.52
   lottie: 2.0.0
+  firebase_storage: 11.0.6
   flutter: 
     sdk: flutter
 

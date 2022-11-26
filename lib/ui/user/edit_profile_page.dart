@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +30,6 @@ class EditProfilePage extends GetView<EditProfilePageController> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  CircleAvatar(),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: controller.nameC,
@@ -64,6 +65,78 @@ class EditProfilePage extends GetView<EditProfilePageController> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GetBuilder<EditProfilePageController>(
+                          builder: (c) => c.pickedImage != null
+                              ? Column(
+                                  children: [
+                                    Container(
+                                      height: 110,
+                                      width: 125,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              image: DecorationImage(
+                                                image: FileImage(
+                                                  File(c.pickedImage!.path),
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: -10,
+                                            right: -5,
+                                            child: IconButton(
+                                              onPressed: () => c.resetImage(),
+                                              icon: Icon(
+                                                Icons.delete,
+                                                color: Colors.red[900],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => c
+                                          .uploadImage(authC.user.value.uid!)
+                                          .then((hasilKembalian) {
+                                        if (hasilKembalian != null) {
+                                          authC.updatePhotoUrl(hasilKembalian);
+                                        }
+                                      }),
+                                      child: Text(
+                                        "Upload",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Text("no image"),
+                        ),
+                        TextButton(
+                            onPressed: () => controller.selectImage(),
+                            child: Text(
+                              "Pilih",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
