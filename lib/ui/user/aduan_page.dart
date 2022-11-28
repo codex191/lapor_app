@@ -42,7 +42,6 @@ class _AduanPageState extends State<AduanPage> {
                   Image.asset('assets/logolaporpky.png'),
                   const SizedBox(height: 16),
                   TextFormField(
-                    initialValue: '',
                     decoration: InputDecoration(
                       labelText: 'Judul Laporan',
                       border: OutlineInputBorder(),
@@ -51,7 +50,6 @@ class _AduanPageState extends State<AduanPage> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
-                    initialValue: '',
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
@@ -61,20 +59,12 @@ class _AduanPageState extends State<AduanPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownSearch<String>(
-                    popupProps: PopupProps.menu(
-                      showSelectedItems: true,
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Alamat',
+                      border: OutlineInputBorder(),
+                      errorText: _validate ? 'Form tidak boleh kosong' : null,
                     ),
-                    items: ["Pengaduan", "Aspirasi", "Permintaan Informasi"],
-                    dropdownDecoratorProps: DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        labelText: "Jenis Laporan",
-                        hintText: "country in menu mode",
-                        errorText: _validate ? 'Form tidak boleh kosong' : null,
-                      ),
-                    ),
-                    onChanged: print,
-                    selectedItem: "",
                   ),
                   const SizedBox(height: 16),
                   TextField(

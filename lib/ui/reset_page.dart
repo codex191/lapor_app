@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/auth/controller/reset_controller.dart';
+import 'package:lottie/lottie.dart';
 
 class ResetPage extends GetView<ResetController> {
   bool obscureText = true;
@@ -24,7 +25,11 @@ class ResetPage extends GetView<ResetController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset('assets/LaporTrans.png'),
+              Lottie.asset(
+                'assets/lottie/newPassword.json',
+                height: 200,
+                width: 200,
+              ),
               const SizedBox(
                 height: 20.0,
               ),

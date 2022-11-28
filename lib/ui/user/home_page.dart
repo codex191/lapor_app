@@ -50,30 +50,29 @@ class HomePage extends GetView<HomePageController> {
               title: const Text('Settings'),
               onTap: () => Get.toNamed(RouteName.Settings),
             ),
-            Expanded(
-              child: ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Apakah Anda yakin untuk keluar?'),
-                          content: const Text('Tekan Ya jika ingin logout'),
-                          actions: <Widget>[
-                            TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text('TIDAK')),
-                            TextButton(
-                                onPressed: () => authC.logout(),
-                                child: Text('YA')),
-                          ],
-                        );
-                      });
-                },
-              ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Log Out'),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Apakah Anda yakin untuk keluar?'),
+                        content: const Text('Tekan Ya jika ingin logout'),
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text('TIDAK')),
+                          TextButton(
+                              onPressed: () => authC.logout(),
+                              child: Text('YA')),
+                        ],
+                      );
+                    });
+              },
             ),
+            Expanded(child: Text("")),
             Container(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -90,11 +89,7 @@ class HomePage extends GetView<HomePageController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return AduanPage();
-                  }));
-                },
+                onPressed: () => Get.toNamed(RouteName.Aduan),
                 child: const Text('Masukan Laporan Anda')),
             // Column(
             //   mainAxisAlignment: MainAxisAlignment.end,
@@ -104,7 +99,7 @@ class HomePage extends GetView<HomePageController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Get.toNamed(RouteName.PERTANYAAN),
         backgroundColor: Colors.blue,
         child: const Icon(Icons.help_rounded),
       ),

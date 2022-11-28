@@ -13,6 +13,7 @@ class AuthController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   GoogleSignInAccount? currentUser;
   UserCredential? userCredential;
+  GoogleSignIn googleSignIn = GoogleSignIn();
 
   Rx<UserModel> user = UserModel().obs;
 
@@ -90,17 +91,46 @@ class AuthController extends GetxController {
           email: email, password: password);
 
       if (myUser.user!.emailVerified) {
+        final credential =
+            EmailAuthProvider.credential(email: email, password: password);
+
+        await FirebaseAuth.instance
+            .signInWithCredential(credential)
+            .then((value) => userCredential = value);
+
         CollectionReference users = firestore.collection('users');
-        users.doc(currentUser!.email).set({
-          "uid": userCredential?.user?.uid,
-          "name": currentUser?.displayName,
-          "email": currentUser?.email,
-          "photoUrl": currentUser?.photoUrl,
-          "createAt":
-              userCredential?.user?.metadata.creationTime?.toIso8601String(),
-          "lastSignInTime":
-              userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
-        });
+
+        final checkUser = await users.doc(currentUser!.email).get();
+
+        if (checkUser.data() == null) {
+          users.doc(currentUser?.email).set({
+            "uid": userCredential?.user?.uid,
+            "name": currentUser?.displayName,
+            "email": currentUser?.email,
+            "photoUrl": currentUser?.photoUrl ?? "noimage",
+            "createAt":
+                userCredential?.user?.metadata.creationTime?.toIso8601String(),
+            "lastSignInTime": userCredential?.user?.metadata.lastSignInTime
+                ?.toIso8601String(),
+          });
+        } else {
+          users.doc(currentUser?.email).update({
+            "lastSignInTime": userCredential?.user?.metadata.lastSignInTime
+                ?.toIso8601String(),
+          });
+        }
+
+        final currUser = await users.doc(currentUser?.email).get();
+        final currUserData = currUser.data() as Map<String, dynamic>;
+
+        user(UserModel(
+          uid: currUserData["uid"],
+          name: currUserData["name"],
+          email: currUserData["email"],
+          photoUrl: currUserData["photoUrl"],
+          createAt: currUserData["createAt"],
+          lastSignInTime: currUserData["lastsignInTime"],
+        ));
 
         Get.offAllNamed(RouteName.Home);
       } else {
@@ -139,6 +169,8 @@ class AuthController extends GetxController {
 
   void logout() async {
     await FirebaseAuth.instance.signOut();
+    //await googleSignIn.disconnect();
+    await googleSignIn.signOut();
     Get.offAllNamed(RouteName.Login);
   }
 

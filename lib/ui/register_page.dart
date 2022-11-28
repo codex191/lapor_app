@@ -5,6 +5,7 @@ import 'package:lapor_app/auth/auth.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/ui/login_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
+import 'package:lottie/lottie.dart';
 import '../auth/controller/signup_controller.dart';
 
 class RegisterPage extends GetView<SignupController> {
@@ -28,7 +29,8 @@ class RegisterPage extends GetView<SignupController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset('assets/LaporTrans.png'),
+              Lottie.asset('assets/lottie/register.json',
+                  height: 200, width: 200),
               const SizedBox(
                 height: 20.0,
               ),

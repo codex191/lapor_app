@@ -3,6 +3,7 @@ import 'package:lapor_app/app/modules/aduan_anda/views/aduan_anda_view.dart';
 import 'package:lapor_app/app/modules/instansi/views/instansi_view.dart';
 import 'package:lapor_app/app/modules/laporan/views/laporan_view.dart';
 import 'package:lapor_app/app/modules/login_admin/views/login_admin_view.dart';
+import 'package:lapor_app/app/modules/pertanyaan/views/pertanyaan_view.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/admin/detail_aduan_page_admin.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
@@ -87,6 +88,10 @@ class AppPages {
     GetPage(
       name: RouteName.ADMINLOGIN,
       page: () => LoginAdminView(),
+    ),
+    GetPage(
+      name: RouteName.PERTANYAAN,
+      page: () => PertanyaanView(),
     ),
   ];
 }

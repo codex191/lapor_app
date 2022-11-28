@@ -41,6 +41,8 @@ flutter:
     - assets/logolaporpky.png
     - assets/
     - assets/images/
+    - assets/lottie/
+    - assets/lottie/register.json
   fonts: 
     - family: Montserrat
       fonts: 

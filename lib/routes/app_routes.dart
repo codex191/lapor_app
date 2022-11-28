@@ -16,4 +16,5 @@ abstract class RouteName {
   static const INSTANSI = '/instansi-page';
   static const LAPORAN = '/laporan-page';
   static const ADMINLOGIN = '/admin-login';
+  static const PERTANYAAN = '/pertanyaan-page';
 }

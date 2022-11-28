@@ -46,28 +46,6 @@ class EditProfilePage extends GetView<EditProfilePageController> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.blueAccent,
-                    ),
-                    onPressed: () {
-                      controller.nameC.text.isEmpty
-                          ? controller.validate.value = true
-                          : controller.validate.value = false;
-
-                      authC.changeProfile(controller.nameC.text);
-                    },
-                    child: const Text(
-                      'Edit Profil',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -136,7 +114,27 @@ class EditProfilePage extends GetView<EditProfilePageController> {
                             )),
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      controller.nameC.text.isEmpty
+                          ? controller.validate.value = true
+                          : controller.validate.value = false;
+
+                      authC.changeProfile(controller.nameC.text);
+                    },
+                    child: const Text(
+                      'Edit Profil',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
