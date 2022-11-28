@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddAduan extends GetxController {
   late TextEditingController judulC;
   late TextEditingController dateC;
-  late TextEditingController jenisLaporanC;
+  late TextEditingController alamatC;
   late TextEditingController notelpC;
   late TextEditingController isiLaporanC;
   late TextEditingController kecCC;
@@ -13,15 +17,73 @@ class AddAduan extends GetxController {
   final RxBool validate = false.obs;
   final RxBool isEmpty = false.obs;
   String? JenisAduan;
+  String? kecC;
+  String? kellC;
+  late ImagePicker imagePicker;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseStorage storage = FirebaseStorage.instance;
 
-  void add(String name, String price) async {
+  XFile? pickedImage = null;
+
+  Future<String?> uploadImage(String uid) async {
+    Reference storageRef = storage.ref("$uid.png");
+    File file = File(pickedImage!.path);
+
+    try {
+      await storageRef.putFile(file);
+      final photoUrl = await storageRef.getDownloadURL();
+      resetImage();
+      return photoUrl;
+    } catch (err) {
+      print(err);
+      return null;
+    }
+  }
+
+  void resetImage() {
+    pickedImage = null;
+    update();
+  }
+
+  void selectImage() async {
+    try {
+      final checkdataImage =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+
+      if (checkdataImage != null) {
+        print(checkdataImage.name);
+        print(checkdataImage.path);
+        pickedImage = checkdataImage;
+      }
+
+      update();
+    } catch (err) {
+      print(err);
+      pickedImage = null;
+      update();
+    }
+  }
+
+  void add(
+      String judul,
+      String date,
+      String alamat,
+      String notelp,
+      String kecamatan,
+      String kelurahan,
+      String isilaporan,
+      String urlPhoto) async {
     CollectionReference aduan = firestore.collection("aduan");
 
     try {
       await aduan.add({
-        "name": name,
-        "price": price,
+        "judul": judul,
+        "notelp": notelp,
+        "alamat": alamat,
+        "kecamatan": kecamatan,
+        "kelurahan": kelurahan,
+        "photoUrl": urlPhoto,
+        "isilaporan": isilaporan,
       });
     } catch (e) {
       Get.defaultDialog(
@@ -37,5 +99,12 @@ class AddAduan extends GetxController {
   }
 
   @override
-  void valiDate() {}
+  void onInit() {
+    judulC = TextEditingController();
+    dateC = TextEditingController();
+    notelpC = TextEditingController();
+    isiLaporanC = TextEditingController();
+    alamatC = TextEditingController();
+    super.onInit();
+  }
 }

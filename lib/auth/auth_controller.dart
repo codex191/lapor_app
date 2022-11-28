@@ -311,4 +311,6 @@ class AuthController extends GetxController {
     Get.defaultDialog(
         title: "sukses", middleText: "update foto profile sukses");
   }
+
+  void addAduan() {}
 }

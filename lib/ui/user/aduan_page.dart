@@ -1,31 +1,28 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 
 import '../../auth/controller/add_aduan_controller.dart';
 
-class AduanPage extends StatefulWidget {
-  const AduanPage({super.key});
-
-  @override
-  State<AduanPage> createState() => _AduanPageState();
-}
-
-class _AduanPageState extends State<AduanPage> {
-  String? JenisAduan;
-  bool _validate = false;
-  TextEditingController date = TextEditingController();
-  TextEditingController judulController = TextEditingController(text: "");
-  TextEditingController notelpController = TextEditingController(text: "");
-  TextEditingController jenislaporanController =
-      TextEditingController(text: "");
-  TextEditingController isiLaporanController = TextEditingController(text: "");
+class AduanPage extends GetView<AddAduan> {
+  // bool _validate = false;
+  // TextEditingController date = TextEditingController();
+  // TextEditingController judulController = TextEditingController(text: "");
+  // TextEditingController notelpController = TextEditingController(text: "");
+  // TextEditingController jenislaporanController =
+  //     TextEditingController(text: "");
+  // TextEditingController isiLaporanController = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
+    final authC = Get.find<AuthController>();
+    final aduanC = Get.put(AddAduan());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -42,33 +39,42 @@ class _AduanPageState extends State<AduanPage> {
                   Image.asset('assets/logolaporpky.png'),
                   const SizedBox(height: 16),
                   TextFormField(
+                    controller: controller.judulC,
                     decoration: InputDecoration(
                       labelText: 'Judul Laporan',
                       border: OutlineInputBorder(),
-                      errorText: _validate ? 'Form tidak boleh kosong' : null,
+                      errorText: controller.validate.value
+                          ? 'Form tidak boleh kosong'
+                          : null,
                     ),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
+                    controller: controller.notelpC,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       labelText: 'No. Telpon',
                       border: OutlineInputBorder(),
-                      errorText: _validate ? 'Form tidak boleh kosong' : null,
+                      errorText: controller.validate.value
+                          ? 'Form tidak boleh kosong'
+                          : null,
                     ),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
+                    controller: controller.alamatC,
                     decoration: InputDecoration(
                       labelText: 'Alamat',
                       border: OutlineInputBorder(),
-                      errorText: _validate ? 'Form tidak boleh kosong' : null,
+                      errorText: controller.validate.value
+                          ? 'Form tidak boleh kosong'
+                          : null,
                     ),
                   ),
                   const SizedBox(height: 16),
                   TextField(
-                      controller: date,
+                      controller: controller.dateC,
                       keyboardType: TextInputType.datetime,
                       decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_today_rounded),
@@ -80,10 +86,8 @@ class _AduanPageState extends State<AduanPage> {
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2101));
                         if (pickdate != null) {
-                          setState(() {
-                            date.text =
-                                DateFormat('yyyy-MM-dd').format(pickdate);
-                          });
+                          controller.dateC.text =
+                              DateFormat('yyyy-MM-dd').format(pickdate);
                         }
                       }),
                   const SizedBox(height: 16),
@@ -101,11 +105,15 @@ class _AduanPageState extends State<AduanPage> {
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
                         labelText: "Kecamatan",
-                        hintText: "country in menu mode",
-                        errorText: _validate ? 'Form tidak boleh kosong' : null,
+                        hintText: "Pilih kecamatan",
+                        errorText: controller.validate.value
+                            ? 'Form tidak boleh kosong'
+                            : null,
                       ),
                     ),
-                    onChanged: print,
+                    onChanged: (value) {
+                      controller.kecC = value;
+                    },
                     selectedItem: "",
                   ),
                   DropdownSearch<String>(
@@ -121,13 +129,17 @@ class _AduanPageState extends State<AduanPage> {
                     ],
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
-                        labelText: "Kecamatan",
-                        hintText: "country in menu mode",
-                        errorText: _validate ? 'Form tidak boleh kosong' : null,
+                        labelText: "Kelurahan",
+                        hintText: "pilih Kelurahan",
+                        errorText: controller.validate.value
+                            ? 'Form tidak boleh kosong'
+                            : null,
                       ),
                     ),
-                    onChanged: print,
-                    selectedItem: "",
+                    onChanged: (value) {
+                      controller.kellC = value;
+                    },
+                    selectedItem: null,
                   ),
                   const SizedBox(height: 16),
                   DropdownSearch<String>(
@@ -145,24 +157,93 @@ class _AduanPageState extends State<AduanPage> {
                       dropdownSearchDecoration: InputDecoration(
                         labelText: "Kelurahan",
                         hintText: "country in menu mode",
-                        errorText: _validate ? 'Form tidak boleh kosong' : null,
+                        errorText: controller.validate.value
+                            ? 'Form tidak boleh kosong'
+                            : null,
                       ),
                     ),
                     onChanged: print,
                     selectedItem: "",
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('Masukkan Gambar'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GetBuilder<AddAduan>(
+                          builder: (c) => c.pickedImage != null
+                              ? Column(
+                                  children: [
+                                    Container(
+                                      height: 110,
+                                      width: 125,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              image: DecorationImage(
+                                                image: FileImage(
+                                                  File(c.pickedImage!.path),
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: -10,
+                                            right: -5,
+                                            child: IconButton(
+                                              onPressed: () => c.resetImage(),
+                                              icon: Icon(
+                                                Icons.delete,
+                                                color: Colors.red[900],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => c
+                                          .uploadImage(authC.user.value.uid!)
+                                          .then((hasilKembalian) {
+                                        if (hasilKembalian != null) {
+                                          authC.updatePhotoUrl(hasilKembalian);
+                                        }
+                                      }),
+                                      child: Text(
+                                        "Upload",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Text("no image"),
+                        ),
+                        TextButton(
+                            onPressed: () => controller.selectImage(),
+                            child: Text(
+                              "Pilih",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
-                    initialValue: '',
+                    controller: controller.isiLaporanC,
                     decoration: InputDecoration(
                       labelText: 'Isi Laporan',
                       border: OutlineInputBorder(),
-                      errorText: _validate ? 'Form tidak boleh kosong' : null,
+                      errorText: controller.validate.value
+                          ? 'Form tidak boleh kosong'
+                          : null,
                     ),
                     maxLines: 5,
                     minLines: 1,
@@ -172,11 +253,9 @@ class _AduanPageState extends State<AduanPage> {
                       primary: Colors.blueAccent,
                     ),
                     onPressed: () {
-                      setState(() {
-                        judulController.text.isEmpty
-                            ? _validate = true
-                            : _validate = false;
-                      });
+                      controller.judulC.text.isEmpty
+                          ? controller.validate.value = true
+                          : controller.validate.value = false;
                     },
                     child: const Text(
                       'Adukan',
