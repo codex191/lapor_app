@@ -40,6 +40,7 @@ class AduanPage extends GetView<AddAduan> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: controller.judulC,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: 'Judul Laporan',
                       border: OutlineInputBorder(),
@@ -53,6 +54,7 @@ class AduanPage extends GetView<AddAduan> {
                     controller: controller.notelpC,
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: 'No. Telpon',
                       border: OutlineInputBorder(),
@@ -64,6 +66,7 @@ class AduanPage extends GetView<AddAduan> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: controller.alamatC,
+                    textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       labelText: 'Alamat',
                       border: OutlineInputBorder(),
@@ -76,6 +79,7 @@ class AduanPage extends GetView<AddAduan> {
                   TextField(
                       controller: controller.dateC,
                       keyboardType: TextInputType.datetime,
+                      textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_today_rounded),
                           labelText: "Select Date"),
@@ -238,6 +242,7 @@ class AduanPage extends GetView<AddAduan> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: controller.isiLaporanC,
+                    textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       labelText: 'Isi Laporan',
                       border: OutlineInputBorder(),
@@ -252,11 +257,21 @@ class AduanPage extends GetView<AddAduan> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent,
                     ),
-                    onPressed: () {
-                      controller.judulC.text.isEmpty
-                          ? controller.validate.value = true
-                          : controller.validate.value = false;
-                    },
+                    // onPressed: () {
+                    //   controller.judulC.text.isEmpty
+                    //       ? controller.validate.value = true
+                    //       : controller.validate.value = false;
+
+                    // },
+                    onPressed: () => controller.addAduan(
+                      controller.judulC.text,
+                      controller.dateC.text,
+                      controller.alamatC.text,
+                      controller.notelpC.text,
+                      controller.kecC.toString(),
+                      controller.kellC.toString(),
+                      controller.isiLaporanC.text,
+                    ),
                     child: const Text(
                       'Adukan',
                       style: TextStyle(

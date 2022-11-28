@@ -12,8 +12,8 @@ class AddAduan extends GetxController {
   late TextEditingController alamatC;
   late TextEditingController notelpC;
   late TextEditingController isiLaporanC;
-  late TextEditingController kecCC;
-  late TextEditingController kelC;
+  // late TextEditingController kecCC;
+  // late TextEditingController kelC;
   final RxBool validate = false.obs;
   final RxBool isEmpty = false.obs;
   String? JenisAduan;
@@ -64,15 +64,8 @@ class AddAduan extends GetxController {
     }
   }
 
-  void add(
-      String judul,
-      String date,
-      String alamat,
-      String notelp,
-      String kecamatan,
-      String kelurahan,
-      String isilaporan,
-      String urlPhoto) async {
+  void addAduan(String judul, String date, String alamat, String notelp,
+      String kecamatan, String kelurahan, String isilaporan) async {
     CollectionReference aduan = firestore.collection("aduan");
 
     try {
@@ -82,20 +75,20 @@ class AddAduan extends GetxController {
         "alamat": alamat,
         "kecamatan": kecamatan,
         "kelurahan": kelurahan,
-        "photoUrl": urlPhoto,
+        "photoUrl": null,
         "isilaporan": isilaporan,
       });
+
+      Get.defaultDialog(
+          title: "Berhasil",
+          middleText: "Berhasil menambahkan aduan",
+          onConfirm: () => Get.back());
     } catch (e) {
       Get.defaultDialog(
           title: "Terjadi Kesalahan",
           middleText: "Gagal menambahkan aduan",
           onConfirm: () => Get.back());
     }
-
-    Get.defaultDialog(
-        title: "Berhasil",
-        middleText: "Berhasil menambahkan aduan",
-        onConfirm: () => Get.back());
   }
 
   @override
@@ -106,5 +99,15 @@ class AddAduan extends GetxController {
     isiLaporanC = TextEditingController();
     alamatC = TextEditingController();
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    judulC.dispose();
+    dateC.dispose();
+    notelpC.dispose();
+    isiLaporanC.dispose();
+    alamatC.dispose();
+    super.onClose();
   }
 }
