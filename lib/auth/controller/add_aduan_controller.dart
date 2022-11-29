@@ -16,6 +16,7 @@ class AddAduan extends GetxController {
   // late TextEditingController kelC;
   final RxBool validate = false.obs;
   final RxBool isEmpty = false.obs;
+  final RxBool agree = false.obs;
   String? JenisAduan;
   String? kecC;
   String? kellC;

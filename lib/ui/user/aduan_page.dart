@@ -19,6 +19,18 @@ class AduanPage extends GetView<AddAduan> {
   //     TextEditingController(text: "");
   // TextEditingController isiLaporanController = TextEditingController(text: "");
 
+  void _doSomething() {
+    controller.addAduan(
+      controller.judulC.text,
+      controller.dateC.text,
+      controller.alamatC.text,
+      controller.notelpC.text,
+      controller.kecC.toString(),
+      controller.kellC.toString(),
+      controller.isiLaporanC.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final authC = Get.find<AuthController>();
@@ -44,10 +56,17 @@ class AduanPage extends GetView<AddAduan> {
                     decoration: InputDecoration(
                       labelText: 'Judul Laporan',
                       border: OutlineInputBorder(),
-                      errorText: controller.validate.value
-                          ? 'Form tidak boleh kosong'
-                          : null,
+                      // errorText: controller.validate.value
+                      //     ? 'Form tidak boleh kosong'
+                      //     : null,
                     ),
+                    validator: (value) {
+                      if (value == null) {
+                        return "kolom yang harus diisi";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
@@ -58,10 +77,17 @@ class AduanPage extends GetView<AddAduan> {
                     decoration: InputDecoration(
                       labelText: 'No. Telpon',
                       border: OutlineInputBorder(),
-                      errorText: controller.validate.value
-                          ? 'Form tidak boleh kosong'
-                          : null,
+                      // errorText: controller.validate.value
+                      //     ? 'Form tidak boleh kosong'
+                      //     : null,
                     ),
+                    validator: (value) {
+                      if (!GetUtils.isPhoneNumber(value!)) {
+                        return "kolom yang harus diisi";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
@@ -70,13 +96,20 @@ class AduanPage extends GetView<AddAduan> {
                     decoration: InputDecoration(
                       labelText: 'Alamat',
                       border: OutlineInputBorder(),
-                      errorText: controller.validate.value
-                          ? 'Form tidak boleh kosong'
-                          : null,
+                      // errorText: controller.validate.value
+                      //     ? 'Form tidak boleh kosong'
+                      //     : null,
                     ),
+                    validator: (value) {
+                      if (value == null) {
+                        return "kolom yang harus diisi";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   const SizedBox(height: 16),
-                  TextField(
+                  TextFormField(
                       controller: controller.dateC,
                       keyboardType: TextInputType.datetime,
                       textInputAction: TextInputAction.next,
@@ -96,9 +129,6 @@ class AduanPage extends GetView<AddAduan> {
                       }),
                   const SizedBox(height: 16),
                   DropdownSearch<String>(
-                    popupProps: PopupProps.menu(
-                      showSelectedItems: true,
-                    ),
                     items: [
                       "Jekan Raya",
                       "Pahandut",
@@ -106,6 +136,13 @@ class AduanPage extends GetView<AddAduan> {
                       "Sebangau",
                       "Rakumpit"
                     ],
+                    validator: (value) {
+                      if (value == null) {
+                        return "kolom yang harus diisi";
+                      } else {
+                        return null;
+                      }
+                    },
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
                         labelText: "Kecamatan",
@@ -113,6 +150,13 @@ class AduanPage extends GetView<AddAduan> {
                         errorText: controller.validate.value
                             ? 'Form tidak boleh kosong'
                             : null,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                       ),
                     ),
                     onChanged: (value) {
@@ -120,16 +164,14 @@ class AduanPage extends GetView<AddAduan> {
                     },
                     selectedItem: "",
                   ),
+                  const SizedBox(height: 16),
                   DropdownSearch<String>(
-                    popupProps: PopupProps.menu(
-                      showSelectedItems: true,
-                    ),
                     items: [
                       "Jekan Raya",
                       "Pahandut",
                       "Bukit Batu",
                       "Sebangau",
-                      "Rakumpit"
+                      "Rakumpit",
                     ],
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
@@ -138,6 +180,13 @@ class AduanPage extends GetView<AddAduan> {
                         errorText: controller.validate.value
                             ? 'Form tidak boleh kosong'
                             : null,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                       ),
                     ),
                     onChanged: (value) {
@@ -222,12 +271,36 @@ class AduanPage extends GetView<AddAduan> {
                     decoration: InputDecoration(
                       labelText: 'Isi Laporan',
                       border: OutlineInputBorder(),
-                      errorText: controller.validate.value
-                          ? 'Form tidak boleh kosong'
-                          : null,
+                      // errorText: controller.validate.value
+                      //     ? 'Form tidak boleh kosong'
+                      //     : null,
                     ),
+                    validator: (value) {
+                      if (value == null) {
+                        return "kolom yang harus diisi";
+                      } else {
+                        return null;
+                      }
+                    },
                     maxLines: 5,
                     minLines: 1,
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Obx(() => Material(
+                            child: Checkbox(
+                              value: controller.agree.value,
+                              onChanged: (value) {
+                                controller.agree.value = value ?? false;
+                              },
+                            ),
+                          )),
+                      const Text(
+                        'I have read and accept terms and conditions',
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ],
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -239,15 +312,17 @@ class AduanPage extends GetView<AddAduan> {
                     //       : controller.validate.value = false;
 
                     // },
-                    onPressed: () => controller.addAduan(
-                      controller.judulC.text,
-                      controller.dateC.text,
-                      controller.alamatC.text,
-                      controller.notelpC.text,
-                      controller.kecC.toString(),
-                      controller.kellC.toString(),
-                      controller.isiLaporanC.text,
-                    ),
+                    onPressed: () => controller.agree.value
+                        ? controller.addAduan(
+                            controller.judulC.text,
+                            controller.dateC.text,
+                            controller.alamatC.text,
+                            controller.notelpC.text,
+                            controller.kecC.toString(),
+                            controller.kellC.toString(),
+                            controller.isiLaporanC.text,
+                          )
+                        : null,
                     child: const Text(
                       'Adukan',
                       style: TextStyle(

@@ -94,49 +94,50 @@ class AuthController extends GetxController {
       UserCredential myUser = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
+      // final credential = EmailAuthProvider.credential(
+      //   email: email,
+      //   password: password,
+      // );
+
+      // await FirebaseAuth.instance
+      //     .signInWithCredential(credential)
+      //     .then((value) => userCredential = value);
+
+      // CollectionReference users = firestore.collection('users');
+
+      // final checkUser = await users.doc(userE!.email).get();
+
+      // if (checkUser.data() == null) {
+      //   users.doc(userE?.email).set({
+      //     "uid": userCredential?.user?.uid,
+      //     "name": userE?.displayName,
+      //     "email": userE?.email,
+      //     "photoUrl": userE?.photoURL ?? "noimage",
+      //     "createAt":
+      //         userCredential?.user?.metadata.creationTime?.toIso8601String(),
+      //     "lastSignInTime":
+      //         userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+      //   });
+      // } else {
+      //   users.doc(userE?.email).update({
+      //     "lastSignInTime":
+      //         userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+      //   });
+      // }
+
+      // final currUser = await users.doc(userE?.email).get();
+      // final currUserData = currUser.data() as Map<String, dynamic>;
+
+      // user(UserModel(
+      //   uid: currUserData["uid"],
+      //   name: currUserData["name"],
+      //   email: currUserData["email"],
+      //   photoUrl: currUserData["photoUrl"],
+      //   createAt: currUserData["createAt"],
+      //   lastSignInTime: currUserData["lastsignInTime"],
+      // ));
+
       if (myUser.user!.emailVerified) {
-        final credential = EmailAuthProvider.credential(
-          email: email,
-          password: password,
-        );
-
-        await FirebaseAuth.instance
-            .signInWithCredential(credential)
-            .then((value) => userCredential = value);
-
-        CollectionReference users = firestore.collection('users');
-
-        final checkUser = await users.doc(userE!.email).get();
-
-        if (checkUser.data() == null) {
-          users.doc(userE?.email).set({
-            "uid": userCredential?.user?.uid,
-            "name": userE?.displayName,
-            "email": userE?.email,
-            "photoUrl": userE?.photoURL ?? "noimage",
-            "createAt":
-                userCredential?.user?.metadata.creationTime?.toIso8601String(),
-            "lastSignInTime": userCredential?.user?.metadata.lastSignInTime
-                ?.toIso8601String(),
-          });
-        } else {
-          users.doc(userE?.email).update({
-            "lastSignInTime": userCredential?.user?.metadata.lastSignInTime
-                ?.toIso8601String(),
-          });
-        }
-
-        final currUser = await users.doc(userE?.email).get();
-        final currUserData = currUser.data() as Map<String, dynamic>;
-
-        user(UserModel(
-          uid: currUserData["uid"],
-          name: currUserData["name"],
-          email: currUserData["email"],
-          photoUrl: currUserData["photoUrl"],
-          createAt: currUserData["createAt"],
-          lastSignInTime: currUserData["lastsignInTime"],
-        ));
         Get.offAllNamed(RouteName.Home);
       } else {
         Get.defaultDialog(
@@ -192,6 +193,49 @@ class AuthController extends GetxController {
             Get.back();
           },
           textConfirm: "Ya, Saya akan cek email.");
+
+      final credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+
+      await FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .then((value) => userCredential = value);
+
+      CollectionReference users = firestore.collection('users');
+
+      final checkUser = await users.doc(userE!.email).get();
+
+      if (checkUser.data() == null) {
+        users.doc(userE?.email).set({
+          "uid": userCredential?.user?.uid,
+          "name": userE?.displayName,
+          "email": userE?.email,
+          "photoUrl": userE?.photoURL ?? "noimage",
+          "createAt":
+              userCredential?.user?.metadata.creationTime?.toIso8601String(),
+          "lastSignInTime":
+              userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+        });
+      } else {
+        users.doc(userE?.email).update({
+          "lastSignInTime":
+              userCredential?.user?.metadata.lastSignInTime?.toIso8601String(),
+        });
+      }
+
+      final currUser = await users.doc(userE?.email).get();
+      final currUserData = currUser.data() as Map<String, dynamic>;
+
+      user(UserModel(
+        uid: currUserData["uid"],
+        name: currUserData["name"],
+        email: currUserData["email"],
+        photoUrl: currUserData["photoUrl"],
+        createAt: currUserData["createAt"],
+        lastSignInTime: currUserData["lastsignInTime"],
+      ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         // print('The password provided is too weak.');

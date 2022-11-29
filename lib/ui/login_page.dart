@@ -4,10 +4,6 @@ import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/auth/controller/login_controller.dart';
 import 'package:lapor_app/routes/app_routes.dart';
-import 'package:lapor_app/ui/admin/home_page_admin.dart';
-import 'package:lapor_app/ui/register_page.dart';
-import 'package:lapor_app/ui/reset_page.dart';
-import 'package:lapor_app/ui/user/home_page.dart';
 
 class LoginPage extends GetView<LoginController> {
   // bool obscureText = true;
@@ -40,20 +36,29 @@ class LoginPage extends GetView<LoginController> {
               const SizedBox(
                 height: 16,
               ),
-              TextField(
+              TextFormField(
                 controller: controller.emailC,
                 keyboardType: TextInputType.emailAddress,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: const InputDecoration(
                   hintText: 'Email',
                   focusedBorder: OutlineInputBorder(),
                   border: OutlineInputBorder(),
                   isDense: true,
                 ),
+                validator: (value) {
+                  if (!GetUtils.isEmail(value!)) {
+                    return "invalid Email";
+                  } else {
+                    return null;
+                  }
+                },
               ),
               const SizedBox(height: 16),
-              Obx(() => TextField(
+              Obx(() => TextFormField(
                     controller: controller.passC,
                     obscureText: controller.obscureText.value,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       hintText: 'Password',
                       border: const OutlineInputBorder(),
@@ -69,6 +74,13 @@ class LoginPage extends GetView<LoginController> {
                       ),
                       isDense: true,
                     ),
+                    validator: (value) {
+                      if (!GetUtils.isLengthGreaterThan(value, 5)) {
+                        return "Minimal 5 karakter";
+                      } else {
+                        return null;
+                      }
+                    },
                   )),
               const SizedBox(height: 8),
               Stack(children: [

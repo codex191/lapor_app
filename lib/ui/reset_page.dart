@@ -43,7 +43,8 @@ class ResetPage extends GetView<ResetController> {
               const SizedBox(
                 height: 16,
               ),
-              TextField(
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: controller.emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -52,6 +53,13 @@ class ResetPage extends GetView<ResetController> {
                   border: OutlineInputBorder(),
                   isDense: true,
                 ),
+                validator: (value) {
+                  if (!GetUtils.isEmail(value!)) {
+                    return "invalid Email";
+                  } else {
+                    return null;
+                  }
+                },
               ),
               const SizedBox(height: 16),
               // TextField(

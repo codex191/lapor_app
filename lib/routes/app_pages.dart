@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:lapor_app/app/modules/aduan_anda/views/aduan_anda_view.dart';
 import 'package:lapor_app/app/modules/instansi/views/instansi_view.dart';
 import 'package:lapor_app/app/modules/laporan/views/laporan_view.dart';
+import 'package:lapor_app/app/modules/laporan_masuk/views/laporan_masuk_view.dart';
 import 'package:lapor_app/app/modules/login_admin/views/login_admin_view.dart';
 import 'package:lapor_app/app/modules/pertanyaan/views/pertanyaan_view.dart';
 import 'package:lapor_app/ui/about_page.dart';
@@ -92,6 +93,10 @@ class AppPages {
     GetPage(
       name: RouteName.PERTANYAAN,
       page: () => PertanyaanView(),
+    ),
+    GetPage(
+      name: RouteName.LAPORANMASUK,
+      page: () => LaporanMasukView(),
     ),
   ];
 }

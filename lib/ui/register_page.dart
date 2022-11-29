@@ -44,7 +44,8 @@ class RegisterPage extends GetView<SignupController> {
               const SizedBox(
                 height: 16,
               ),
-              TextField(
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: controller.emailC,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -53,9 +54,17 @@ class RegisterPage extends GetView<SignupController> {
                   border: OutlineInputBorder(),
                   isDense: true,
                 ),
+                validator: (value) {
+                  if (!GetUtils.isEmail(value!)) {
+                    return "invalid Email";
+                  } else {
+                    return null;
+                  }
+                },
               ),
               const SizedBox(height: 16),
-              Obx(() => TextField(
+              Obx(() => TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: controller.passC,
                     obscureText: controller.obscureText.value,
                     decoration: InputDecoration(
@@ -73,15 +82,53 @@ class RegisterPage extends GetView<SignupController> {
                       ),
                       isDense: true,
                     ),
+                    validator: (value) {
+                      if (!GetUtils.isLengthGreaterThan(value, 5)) {
+                        return "Minimal 5 karakter";
+                      } else {
+                        return null;
+                      }
+                    },
                   )),
               const SizedBox(height: 8),
+              Row(
+                children: [
+                  Obx(() => Material(
+                        child: Checkbox(
+                          value: controller.agree.value,
+                          onChanged: (value) {
+                            controller.agree.value = value ?? false;
+                          },
+                        ),
+                      )),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        text: 'Dengan melakukan daftar, Anda setuju dengan ',
+                        style: Theme.of(context).textTheme.bodyText1,
+                        children: const [
+                          TextSpan(
+                            text: 'syarat & ketentuan Aplikasi ini',
+                            style:
+                                TextStyle(decoration: TextDecoration.underline),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
               const SizedBox(height: 16),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blueAccent,
                 ),
-                onPressed: () =>
-                    authC.signup(controller.emailC.text, controller.passC.text),
+                onPressed: () => controller.agree.value
+                    ? authC.signup(
+                        controller.emailC.text, controller.passC.text)
+                    : null,
                 child: const Text(
                   'Daftar',
                   style: TextStyle(
@@ -136,19 +183,19 @@ class RegisterPage extends GetView<SignupController> {
                   color: Colors.black,
                 ),
               ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: 'Dengan melakukan daftar, Anda setuju dengan ',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  children: const [
-                    TextSpan(
-                      text: 'syarat & ketentuan Aplikasi ini',
-                      style: TextStyle(decoration: TextDecoration.underline),
-                    ),
-                  ],
-                ),
-              ),
+              // RichText(
+              //   textAlign: TextAlign.center,
+              //   text: TextSpan(
+              //     text: 'Dengan melakukan daftar, Anda setuju dengan ',
+              //     style: Theme.of(context).textTheme.bodyText1,
+              //     children: const [
+              //       TextSpan(
+              //         text: 'syarat & ketentuan Aplikasi ini',
+              //         style: TextStyle(decoration: TextDecoration.underline),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

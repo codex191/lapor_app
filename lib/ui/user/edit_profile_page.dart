@@ -32,18 +32,25 @@ class EditProfilePage extends GetView<EditProfilePageController> {
                 children: [
                   const SizedBox(height: 16),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: controller.nameC,
-                    textInputAction: TextInputAction.done,
                     onEditingComplete: () {
                       authC.changeProfile(controller.nameC.text);
                     },
                     decoration: InputDecoration(
                       labelText: 'Nama Baru',
                       border: OutlineInputBorder(),
-                      errorText: controller.validate.value
-                          ? 'Form tidak boleh kosong'
-                          : null,
+                      // errorText: controller.validate.value
+                      //     ? 'Form tidak boleh kosong'
+                      //     : null,
                     ),
+                    validator: (value) {
+                      if (!GetUtils.isNull(value)) {
+                        return "Tidak boleh kosong";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   const SizedBox(height: 16),
                   Padding(
@@ -121,9 +128,9 @@ class EditProfilePage extends GetView<EditProfilePageController> {
                       primary: Colors.blueAccent,
                     ),
                     onPressed: () {
-                      controller.nameC.text.isEmpty
-                          ? controller.validate.value = true
-                          : controller.validate.value = false;
+                      // controller.nameC.text.isEmpty
+                      //     ? controller.validate.value = true
+                      //     : controller.validate.value = false;
 
                       authC.changeProfile(controller.nameC.text);
                     },
