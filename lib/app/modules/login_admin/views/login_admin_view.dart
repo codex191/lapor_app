@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lottie/lottie.dart';
 
 import '../controllers/login_admin_controller.dart';
 
@@ -27,7 +28,8 @@ class LoginAdminView extends GetView<LoginAdminController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset('assets/LaporTrans.png'),
+              Lottie.network(
+                  'https://assets5.lottiefiles.com/packages/lf20_0jQBogOQOn.json'),
               const SizedBox(
                 height: 20.0,
               ),
