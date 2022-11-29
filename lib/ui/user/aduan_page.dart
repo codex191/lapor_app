@@ -146,30 +146,6 @@ class AduanPage extends GetView<AddAduan> {
                     selectedItem: null,
                   ),
                   const SizedBox(height: 16),
-                  DropdownSearch<String>(
-                    popupProps: PopupProps.menu(
-                      showSelectedItems: true,
-                    ),
-                    items: [
-                      "Jekan Raya",
-                      "Pahandut",
-                      "Bukit Batu",
-                      "Sebangau",
-                      "Rakumpit"
-                    ],
-                    dropdownDecoratorProps: DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                        labelText: "Kelurahan",
-                        hintText: "country in menu mode",
-                        errorText: controller.validate.value
-                            ? 'Form tidak boleh kosong'
-                            : null,
-                      ),
-                    ),
-                    onChanged: print,
-                    selectedItem: "",
-                  ),
-                  const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(

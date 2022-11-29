@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
@@ -22,6 +22,8 @@ class AddAduan extends GetxController {
   late ImagePicker imagePicker;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+
+  UserCredential? userCredential;
 
   XFile? pickedImage = null;
 
@@ -70,6 +72,7 @@ class AddAduan extends GetxController {
 
     try {
       await aduan.add({
+        "pengirim": userCredential?.user?.displayName,
         "judul": judul,
         "notelp": notelp,
         "alamat": alamat,
@@ -77,12 +80,16 @@ class AddAduan extends GetxController {
         "kelurahan": kelurahan,
         "photoUrl": null,
         "isilaporan": isilaporan,
+        "status": "Belum selesai",
       });
 
       Get.defaultDialog(
           title: "Berhasil",
           middleText: "Berhasil menambahkan aduan",
-          onConfirm: () => Get.back());
+          onConfirm: () {
+            Get.back();
+            Get.back();
+          });
     } catch (e) {
       Get.defaultDialog(
           title: "Terjadi Kesalahan",
