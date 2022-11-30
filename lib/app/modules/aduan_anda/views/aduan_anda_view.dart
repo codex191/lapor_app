@@ -10,8 +10,11 @@ class AduanAndaView extends GetView<AduanAndaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AduanAndaView'),
-        centerTitle: true,
+        title: const Text('Profile Page',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
+        leading: const BackButton(color: Colors.black),
+        elevation: 0,
       ),
       body: Center(
         child: Text(

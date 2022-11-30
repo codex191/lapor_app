@@ -2,39 +2,21 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
+import 'package:lapor_app/auth/controller/editprofile_controller.dart';
 
 import '../../auth/controller/add_aduan_controller.dart';
 
 class AduanPage extends GetView<AddAduan> {
-  // bool _validate = false;
-  // TextEditingController date = TextEditingController();
-  // TextEditingController judulController = TextEditingController(text: "");
-  // TextEditingController notelpController = TextEditingController(text: "");
-  // TextEditingController jenislaporanController =
-  //     TextEditingController(text: "");
-  // TextEditingController isiLaporanController = TextEditingController(text: "");
-
-  void _doSomething() {
-    controller.addAduan(
-      controller.judulC.text,
-      controller.dateC.text,
-      controller.alamatC.text,
-      controller.notelpC.text,
-      controller.kecC.toString(),
-      controller.kellC.toString(),
-      controller.isiLaporanC.text,
-    );
-  }
-
+  final authC = Get.find<AuthController>();
+  final aduanC = Get.put(AddAduan());
   @override
   Widget build(BuildContext context) {
-    final authC = Get.find<AuthController>();
-    final aduanC = Get.put(AddAduan());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -45,7 +27,7 @@ class AduanPage extends GetView<AddAduan> {
         child: Center(
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
                   Image.asset('assets/logolaporpky.png'),
@@ -63,6 +45,25 @@ class AduanPage extends GetView<AddAduan> {
                     validator: (value) {
                       if (value == null) {
                         return "kolom yang harus diisi";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: controller.emailC,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                      // errorText: controller.validate.value
+                      //     ? 'Form tidak boleh kosong'
+                      //     : null,
+                    ),
+                    validator: (value) {
+                      if (!GetUtils.isEmail(value!)) {
+                        return "Harap isi email dengan benar";
                       } else {
                         return null;
                       }
@@ -162,16 +163,40 @@ class AduanPage extends GetView<AddAduan> {
                     onChanged: (value) {
                       controller.kecC = value;
                     },
-                    selectedItem: "",
                   ),
                   const SizedBox(height: 16),
                   DropdownSearch<String>(
                     items: [
-                      "Jekan Raya",
+                      "Banturung",
+                      "Habaring Hurung",
+                      "Kanarakan",
+                      "Marang",
+                      "Sei Gohong",
+                      "Tangkiling",
+                      "Tumbang Tahai",
+                      "Bukit Tunggal",
+                      "Menteng",
+                      "Palangka",
+                      "Petuk Katimpun",
+                      "Langkai",
                       "Pahandut",
-                      "Bukit Batu",
-                      "Sebangau",
-                      "Rakumpit",
+                      "Pahandut Seberang",
+                      "Panarung",
+                      "Tanjung Pinang",
+                      "Tumbang Rungan",
+                      "Bukit Sua",
+                      "Gaung baru",
+                      "Mungku Baru",
+                      "Pager",
+                      "Penjehang",
+                      "Petuk Barunai",
+                      "Petuk Bukit",
+                      "Bereng Bengkel",
+                      "Danau Tundai",
+                      "Kalampangan",
+                      "Kameloh baru",
+                      "Kereng Bangkirai",
+                      "Sabaru",
                     ],
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
@@ -240,9 +265,9 @@ class AduanPage extends GetView<AddAduan> {
                                     TextButton(
                                       onPressed: () => c
                                           .uploadImage(authC.user.value.uid!)
-                                          .then((hasilKembalian) {
-                                        if (hasilKembalian != null) {
-                                          authC.updatePhotoUrl(hasilKembalian);
+                                          .then((value) {
+                                        if (value != null) {
+                                          controller.urlPhoto = value;
                                         }
                                       }),
                                       child: Text(
@@ -253,7 +278,7 @@ class AduanPage extends GetView<AddAduan> {
                                     ),
                                   ],
                                 )
-                              : Text("no image"),
+                              : Text("Tidak Ada Gambar"),
                         ),
                         TextButton(
                             onPressed: () => controller.selectImage(),
@@ -296,12 +321,20 @@ class AduanPage extends GetView<AddAduan> {
                               },
                             ),
                           )),
-                      const Text(
-                        'I have read and accept terms and conditions',
-                        overflow: TextOverflow.ellipsis,
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: RichText(
+                          textAlign: TextAlign.justify,
+                          text: TextSpan(
+                            text:
+                                'Dengan melakukan Adukan, Saya setuju bahwasannya aduan yang dilampirkan benar adanya, dan saya bertanggung jawab penuh terhadap aduan yang telah diajukan.',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ),
                       )
                     ],
                   ),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent,
@@ -315,12 +348,14 @@ class AduanPage extends GetView<AddAduan> {
                     onPressed: () => controller.agree.value
                         ? controller.addAduan(
                             controller.judulC.text,
+                            controller.emailC.text,
                             controller.dateC.text,
                             controller.alamatC.text,
                             controller.notelpC.text,
                             controller.kecC.toString(),
                             controller.kellC.toString(),
                             controller.isiLaporanC.text,
+                            controller.urlPhoto.toString(),
                           )
                         : null,
                     child: const Text(

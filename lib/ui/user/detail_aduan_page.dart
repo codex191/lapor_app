@@ -25,8 +25,22 @@ class _DetailAduanPageState extends State<DetailAduanPage> {
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black))),
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Text('haha hihi',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text(
+                'Detail Aduan',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 24,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
       )),
     );
   }

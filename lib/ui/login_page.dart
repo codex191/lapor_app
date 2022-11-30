@@ -74,13 +74,6 @@ class LoginPage extends GetView<LoginController> {
                       ),
                       isDense: true,
                     ),
-                    validator: (value) {
-                      if (!GetUtils.isLengthGreaterThan(value, 5)) {
-                        return "Minimal 5 karakter";
-                      } else {
-                        return null;
-                      }
-                    },
                   )),
               const SizedBox(height: 8),
               Stack(children: [

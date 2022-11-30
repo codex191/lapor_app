@@ -8,18 +8,18 @@ import 'package:image_picker/image_picker.dart';
 
 class AddAduan extends GetxController {
   late TextEditingController judulC;
+  late TextEditingController emailC;
   late TextEditingController dateC;
   late TextEditingController alamatC;
   late TextEditingController notelpC;
   late TextEditingController isiLaporanC;
-  // late TextEditingController kecCC;
-  // late TextEditingController kelC;
   final RxBool validate = false.obs;
   final RxBool isEmpty = false.obs;
   final RxBool agree = false.obs;
   String? JenisAduan;
   String? kecC;
   String? kellC;
+  String? urlPhoto;
   late ImagePicker imagePicker;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -29,7 +29,7 @@ class AddAduan extends GetxController {
   XFile? pickedImage = null;
 
   Future<String?> uploadImage(String uid) async {
-    Reference storageRef = storage.ref("$uid.png");
+    Reference storageRef = storage.ref("aduan/aduan_$uid.jpg");
     File file = File(pickedImage!.path);
 
     try {
@@ -67,19 +67,28 @@ class AddAduan extends GetxController {
     }
   }
 
-  void addAduan(String judul, String date, String alamat, String notelp,
-      String kecamatan, String kelurahan, String isilaporan) async {
+  void addAduan(
+      String judul,
+      String email,
+      String date,
+      String alamat,
+      String notelp,
+      String kecamatan,
+      String kelurahan,
+      String isilaporan,
+      String url) async {
     CollectionReference aduan = firestore.collection("aduan");
 
     try {
       await aduan.add({
-        "pengirim": userCredential?.user?.displayName,
+        "pengirim": email,
         "judul": judul,
+        "tanggal": date,
         "notelp": notelp,
         "alamat": alamat,
         "kecamatan": kecamatan,
         "kelurahan": kelurahan,
-        "photoUrl": null,
+        "photoUrl": url,
         "isilaporan": isilaporan,
         "status": "Belum selesai",
       });
@@ -102,16 +111,19 @@ class AddAduan extends GetxController {
   @override
   void onInit() {
     judulC = TextEditingController();
+    emailC = TextEditingController();
     dateC = TextEditingController();
     notelpC = TextEditingController();
     isiLaporanC = TextEditingController();
     alamatC = TextEditingController();
+    imagePicker = ImagePicker();
     super.onInit();
   }
 
   @override
   void onClose() {
     judulC.dispose();
+    emailC.dispose();
     dateC.dispose();
     notelpC.dispose();
     isiLaporanC.dispose();

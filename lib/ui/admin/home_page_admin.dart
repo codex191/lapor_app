@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/app/modules/laporan_masuk/controllers/laporan_masuk_controller.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
-import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/routes/app_routes.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class HomePageAdmin extends StatefulWidget {
   const HomePageAdmin({super.key});
@@ -26,7 +23,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
         title: const Text('Admin Page'),
       ),
       body: Column(
-        children: [Text("data")],
+        children: [],
       ),
       drawer: Drawer(
         child: Column(
@@ -40,7 +37,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
             ),
             ListTile(
               leading: const Icon(Icons.comment),
-              title: const Text('Laporan Masuk'),
+              title: const Text('Aduan Masuk'),
               onTap: () => Get.toNamed(RouteName.LAPORANMASUK),
             ),
             ListTile(

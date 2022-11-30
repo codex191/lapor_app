@@ -11,7 +11,7 @@ class LaporanMasukView extends GetView<LaporanMasukController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Laporan Masuk'),
+        title: const Text('Aduan Masuk'),
       ),
       body: FutureBuilder<QuerySnapshot<Object?>>(
           future: controller.getData(),

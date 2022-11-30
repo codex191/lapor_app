@@ -4,6 +4,7 @@ import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/auth/controller/home_controller.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 import 'package:lapor_app/ui/user/aduan_page.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePage extends GetView<HomePageController> {
   final authC = Get.find<AuthController>();
@@ -45,11 +46,11 @@ class HomePage extends GetView<HomePageController> {
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
             ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () => Get.toNamed(RouteName.Settings),
-            ),
+            // ListTile(
+            //   leading: const Icon(Icons.settings),
+            //   title: const Text('Settings'),
+            //   onTap: () => Get.toNamed(RouteName.Settings),
+            // ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Log Out'),
@@ -86,15 +87,48 @@ class HomePage extends GetView<HomePageController> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Lottie.asset(
+              "assets/lottie/hello.json",
+              width: 350,
+              height: 350,
+            ),
             ElevatedButton(
                 onPressed: () => Get.toNamed(RouteName.Aduan),
                 child: const Text('Masukan Laporan Anda')),
-            // Column(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [Image.asset('assets/LogoUPR.png')],
-            // )
+            Expanded(
+              child: Text(""),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/LogoUPR.png',
+                    width: 75,
+                    height: 75,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Image.asset(
+                    'assets/LogoPemko.png',
+                    width: 75,
+                    height: 75,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Image.asset(
+                    'assets/LogoKominfo.png',
+                    width: 75,
+                    height: 75,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
