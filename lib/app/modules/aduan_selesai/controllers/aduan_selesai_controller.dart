@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-class LaporanMasukController extends GetxController {
-  //TODO: Implement LaporanMasukController
+class AduanSelesaiController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<QuerySnapshot<Object?>> getData() async {
@@ -14,9 +13,8 @@ class LaporanMasukController extends GetxController {
   }
 
   Stream<QuerySnapshot<Object?>> streamData() {
-    Query aduan = firestore
-        .collection("aduan")
-        .where("status", isEqualTo: "Belum selesai");
+    Query aduan =
+        firestore.collection("aduan").where("status", isEqualTo: "Selesai");
     return aduan.snapshots();
   }
 

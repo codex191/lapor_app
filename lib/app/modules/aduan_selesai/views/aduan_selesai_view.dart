@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lapor_app/routes/app_routes.dart';
 
 import 'package:get/get.dart';
+import 'package:lapor_app/routes/app_routes.dart';
 
-import '../controllers/laporan_masuk_controller.dart';
+import '../controllers/aduan_selesai_controller.dart';
 
-class LaporanMasukView extends GetView<LaporanMasukController> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+class AduanSelesaiView extends GetView<AduanSelesaiController> {
+  final adSel = Get.put(AduanSelesaiController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +16,7 @@ class LaporanMasukView extends GetView<LaporanMasukController> {
         backgroundColor: Colors.white,
         leading: const BackButton(color: Colors.black),
         title: const Text(
-          'Aduan Masuk',
+          'Aduan Selesai',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -102,8 +102,7 @@ class LaporanMasukView extends GetView<LaporanMasukController> {
                                       child: Text("Detail Aduan"),
                                     ),
                                     TextButton(
-                                      onPressed: () => controller
-                                          .editAduan(listAllAduan[index].id),
+                                      onPressed: null,
                                       child: Text("Selesaikan"),
                                     ),
                                   ],

@@ -1,22 +1,36 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:lapor_app/auth/auth_controller.dart';
 
-class AduanAndaController extends GetxController {
+class DetailAduanController extends GetxController {
   //TODO: Implement AduanAndaController
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final authC = Get.find<AuthController>();
 
   Future<DocumentSnapshot<Object?>> getData(String docID) async {
     DocumentReference docRef = firestore.collection("aduan").doc(docID);
     return docRef.get();
   }
 
-  Stream<QuerySnapshot<Object?>> streamData() {
-    Query aduan = firestore
-        .collection("aduan")
-        .where("pengirim", isEqualTo: authC.user.value.email);
-    return aduan.snapshots();
+  void editAduan(String docID) async {
+    DocumentReference docData = firestore.collection("aduan").doc(docID);
+
+    try {
+      await docData.update({
+        "status": "Selesai",
+      });
+
+      Get.defaultDialog(
+          title: "Berhasil",
+          middleText: "Berhasil menyelesaikan aduan",
+          onConfirm: (() {
+            Get.back();
+            Get.back();
+          }));
+    } catch (e) {
+      Get.defaultDialog(
+        title: "Terjadi kesalahan",
+        middleText: "Tidak dapat menyelesaikan aduan",
+      );
+    }
   }
 
   final count = 0.obs;

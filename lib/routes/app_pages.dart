@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lapor_app/app/modules/aduan_anda/views/aduan_anda_view.dart';
+import 'package:lapor_app/app/modules/aduan_selesai/views/aduan_selesai_view.dart';
 import 'package:lapor_app/app/modules/instansi/views/instansi_view.dart';
 import 'package:lapor_app/app/modules/laporan/views/laporan_view.dart';
 import 'package:lapor_app/app/modules/laporan_masuk/views/laporan_masuk_view.dart';
@@ -97,6 +98,10 @@ class AppPages {
     GetPage(
       name: RouteName.LAPORANMASUK,
       page: () => LaporanMasukView(),
+    ),
+    GetPage(
+      name: RouteName.LAPORANSELESAI,
+      page: () => AduanSelesaiView(),
     ),
   ];
 }

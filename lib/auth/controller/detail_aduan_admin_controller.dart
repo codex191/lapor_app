@@ -1,23 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-class LaporanMasukController extends GetxController {
-  //TODO: Implement LaporanMasukController
+class DetailAduanAdminController extends GetxController {
+  //TODO: Implement AduanAndaController
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<QuerySnapshot<Object?>> getData() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    CollectionReference aduan = firestore.collection("aduan");
-
-    return aduan.get();
-  }
-
-  Stream<QuerySnapshot<Object?>> streamData() {
-    Query aduan = firestore
-        .collection("aduan")
-        .where("status", isEqualTo: "Belum selesai");
-    return aduan.snapshots();
+  Future<DocumentSnapshot<Object?>> getData(String docID) async {
+    DocumentReference docRef = firestore.collection("aduan").doc(docID);
+    return docRef.get();
   }
 
   void editAduan(String docID) async {
@@ -32,6 +22,7 @@ class LaporanMasukController extends GetxController {
           title: "Berhasil",
           middleText: "Berhasil menyelesaikan aduan",
           onConfirm: (() {
+            Get.back();
             Get.back();
           }));
     } catch (e) {
