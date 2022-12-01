@@ -172,6 +172,20 @@ class DetailAduanPage extends GetView<DetailAduanController> {
                     const SizedBox(
                       height: 14,
                     ),
+                    const Text(
+                      "STATUS ADUAN",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      data["status"],
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),

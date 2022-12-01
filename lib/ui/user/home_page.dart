@@ -82,6 +82,9 @@ class HomePage extends GetView<HomePageController> {
                     Text("v.1.0.0"),
                   ]),
             ),
+            const SizedBox(
+              height: 16,
+            ),
           ],
         ),
       ),
