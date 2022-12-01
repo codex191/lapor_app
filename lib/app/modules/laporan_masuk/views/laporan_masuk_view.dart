@@ -58,7 +58,7 @@ class LaporanMasukView extends GetView<LaporanMasukController> {
                               Text(
                                 "${(listAllAduan[index].data() as Map<String, dynamic>)["judul"]}",
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

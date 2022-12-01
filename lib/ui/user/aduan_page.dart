@@ -45,30 +45,28 @@ class AduanPage extends GetView<AddAduan> {
                     validator: (value) {
                       if (value == null) {
                         return "kolom yang harus diisi";
-                      } else {
-                        return null;
                       }
                     },
                   ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: controller.emailC,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                      // errorText: controller.validate.value
-                      //     ? 'Form tidak boleh kosong'
-                      //     : null,
-                    ),
-                    validator: (value) {
-                      if (!GetUtils.isEmail(value!)) {
-                        return "Harap isi email dengan benar";
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
+                  // const SizedBox(height: 16),
+                  // TextFormField(
+                  //   controller: controller.emailC,
+                  //   textInputAction: TextInputAction.next,
+                  //   decoration: InputDecoration(
+                  //     labelText: 'Email',
+                  //     border: OutlineInputBorder(),
+                  //     // errorText: controller.validate.value
+                  //     //     ? 'Form tidak boleh kosong'
+                  //     //     : null,
+                  //   ),
+                  //   validator: (value) {
+                  //     if (!GetUtils.isEmail(value!)) {
+                  //       return "Harap isi email dengan benar";
+                  //     } else {
+                  //       return null;
+                  //     }
+                  //   },
+                  // ),
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: controller.notelpC,
@@ -85,8 +83,6 @@ class AduanPage extends GetView<AddAduan> {
                     validator: (value) {
                       if (!GetUtils.isPhoneNumber(value!)) {
                         return "kolom yang harus diisi";
-                      } else {
-                        return null;
                       }
                     },
                   ),
@@ -104,8 +100,6 @@ class AduanPage extends GetView<AddAduan> {
                     validator: (value) {
                       if (value == null) {
                         return "kolom yang harus diisi";
-                      } else {
-                        return null;
                       }
                     },
                   ),
@@ -140,8 +134,6 @@ class AduanPage extends GetView<AddAduan> {
                     validator: (value) {
                       if (value == null) {
                         return "kolom yang harus diisi";
-                      } else {
-                        return null;
                       }
                     },
                     dropdownDecoratorProps: DropDownDecoratorProps(
@@ -217,7 +209,6 @@ class AduanPage extends GetView<AddAduan> {
                     onChanged: (value) {
                       controller.kellC = value;
                     },
-                    selectedItem: null,
                   ),
                   const SizedBox(height: 16),
                   Padding(
@@ -267,6 +258,9 @@ class AduanPage extends GetView<AddAduan> {
                                           .uploadImage(authC.user.value.uid!)
                                           .then((value) {
                                         if (value != null) {
+                                          controller.urlPhoto = value;
+                                        } else {
+                                          value == "noiamge";
                                           controller.urlPhoto = value;
                                         }
                                       }),
@@ -348,7 +342,7 @@ class AduanPage extends GetView<AddAduan> {
                     onPressed: () => controller.agree.value
                         ? controller.addAduan(
                             controller.judulC.text,
-                            controller.emailC.text,
+                            // controller.emailC.text,
                             controller.dateC.text,
                             controller.alamatC.text,
                             controller.notelpC.text,

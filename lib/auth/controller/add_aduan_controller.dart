@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 
 class AddAduan extends GetxController {
   late TextEditingController judulC;
@@ -23,6 +24,8 @@ class AddAduan extends GetxController {
   late ImagePicker imagePicker;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
+
+  final authC = Get.find<AuthController>();
 
   UserCredential? userCredential;
 
@@ -67,21 +70,13 @@ class AddAduan extends GetxController {
     }
   }
 
-  void addAduan(
-      String judul,
-      String email,
-      String date,
-      String alamat,
-      String notelp,
-      String kecamatan,
-      String kelurahan,
-      String isilaporan,
-      String url) async {
+  void addAduan(String judul, String date, String alamat, String notelp,
+      String kecamatan, String kelurahan, String isilaporan, String url) async {
     CollectionReference aduan = firestore.collection("aduan");
 
     try {
       await aduan.add({
-        "pengirim": email,
+        "pengirim": authC.user.value.email,
         "judul": judul,
         "tanggal": date,
         "notelp": notelp,

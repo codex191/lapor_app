@@ -30,9 +30,12 @@ class DetailAduanPage extends GetView<DetailAduanController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    data["photoUrl"] != "noimage"
+                    const SizedBox(
+                      height: 75,
+                    ),
+                    data["photoUrl"] != "null"
                         ? Image.network(data["photoUrl"])
-                        : Text("Tidak ada gambar"),
+                        : Center(child: Text("Tidak ada gambar")),
                     const SizedBox(
                       height: 16,
                     ),
