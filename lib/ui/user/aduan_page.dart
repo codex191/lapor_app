@@ -9,12 +9,14 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
 import 'package:lapor_app/auth/controller/editprofile_controller.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../auth/controller/add_aduan_controller.dart';
 
 class AduanPage extends GetView<AddAduan> {
   final authC = Get.find<AuthController>();
   final aduanC = Get.put(AddAduan());
+  var uuid = Uuid();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -255,7 +257,7 @@ class AduanPage extends GetView<AddAduan> {
                                     ),
                                     TextButton(
                                       onPressed: () => c
-                                          .uploadImage(authC.user.value.uid!)
+                                          .uploadImage(uuid.v4())
                                           .then((value) {
                                         if (value != null) {
                                           controller.urlPhoto = value;

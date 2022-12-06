@@ -65,7 +65,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                       ),
                       Container(
                         child: Text(
-                          "40",
+                          "7",
                           style: TextStyle(
                               fontSize: 36, fontWeight: FontWeight.bold),
                         ),
@@ -105,7 +105,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                           ),
                         ),
                         child: Text(
-                          "LAPORAN     SELESAI",
+                          "LAPORAN     BELUM SELESAI",
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
@@ -113,7 +113,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                       ),
                       Container(
                         child: Text(
-                          "38",
+                          "6",
                           style: TextStyle(
                               fontSize: 36, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
@@ -159,7 +159,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                           ),
                         ),
                         child: Text(
-                          "TOTAL LAPORAN MASUK",
+                          "TOTAL LAPORAN SELESAI",
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
@@ -167,7 +167,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                       ),
                       Container(
                         child: Text(
-                          "40",
+                          "1",
                           style: TextStyle(
                               fontSize: 36, fontWeight: FontWeight.bold),
                         ),

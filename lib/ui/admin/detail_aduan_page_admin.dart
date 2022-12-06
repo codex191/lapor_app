@@ -28,7 +28,7 @@ class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    data["photoUrl"] != "noimage"
+                    data["photoUrl"] != "null"
                         ? Image.network(data["photoUrl"])
                         : Text("Tidak ada gambar"),
                     const SizedBox(
@@ -190,7 +190,9 @@ class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                       ),
-                      onPressed: () => controller.editAduan(Get.arguments),
+                      onPressed: () => data["status"] == "Selesai"
+                          ? null
+                          : controller.editAduan(Get.arguments),
                       child: const Text(
                         'SELESAIKAN ADUAN',
                         style: TextStyle(
