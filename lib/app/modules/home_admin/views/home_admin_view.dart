@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,79 +10,67 @@ import '../controllers/home_admin_controller.dart';
 
 class HomeAdminView extends GetView<HomeAdminController> {
   final authC = Get.find<AuthController>();
+  final adminnC = Get.put(HomeAdminController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HOME'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () => authC.logout(),
-            icon: Icon(Icons.logout),
-          ),
-        ],
+        title: const Text('Admin Page'),
       ),
-      body: ListView(
-        children: [
-          MenuItem(
-            title: "DATA ADMIN",
-            imageURL: "https://picsum.photos/id/870/1500",
-          ),
-          MenuItem(
-            title: "DATA PETUGAS",
-            imageURL: "https://picsum.photos/id/878/1500",
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MenuItem extends StatelessWidget {
-  MenuItem({
-    Key? key,
-    required this.title,
-    required this.imageURL,
-  }) : super(key: key);
-
-  final String title;
-  final String imageURL;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (title == "DATA ADMIN") {
-          Get.toNamed(RouteName.LAPORAN);
-        } else {
-          Get.toNamed(RouteName.INSTANSI);
-        }
-      },
-      child: Container(
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.all(20),
-        width: Get.width,
-        height: Get.width * 0.35,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          image: DecorationImage(
-            image: NetworkImage(
-              imageURL,
+      body: FutureBuilder<AggregateQuerySnapshot>(
+          //future: controller.getData(),
+          builder: (context, snapshot) {
+        // print(snapshot);
+        return Text(snapshot.toString());
+      }),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/LogoKominfoTanpaTeks.png'),
+              ),
+              accountName: Text('Admin'),
+              accountEmail: Text('${FirebaseAuth.instance.currentUser!.email}'),
             ),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              color: Colors.white,
+            ListTile(
+              leading: const Icon(Icons.comment),
+              title: const Text('Aduan Masuk'),
+              onTap: () => Get.toNamed(RouteName.LAPORANMASUK),
             ),
-          ),
+            ListTile(
+              leading: const Icon(Icons.comment),
+              title: const Text('Aduan Selesai'),
+              onTap: () => Get.toNamed(RouteName.LAPORANSELESAI),
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Tentang Aplikasi'),
+              onTap: () => Get.toNamed(RouteName.About),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Log Out'),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Apakah Anda yakin untuk keluar?'),
+                        content: const Text('Tekan Ya jika ingin logout'),
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text('TIDAK')),
+                          TextButton(
+                              onPressed: () => authC.logout(),
+                              child: Text('YA')),
+                        ],
+                      );
+                    });
+              },
+            ),
+          ],
         ),
       ),
     );

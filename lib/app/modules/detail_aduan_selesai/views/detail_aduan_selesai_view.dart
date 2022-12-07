@@ -1,23 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:get/get.dart';
-import 'package:lapor_app/auth/controller/detail_aduan_admin_controller.dart';
-import 'package:lapor_app/routes/app_routes.dart';
 
-class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
-  final detAduanAd = Get.put(DetailAduanAdminController());
+import 'package:get/get.dart';
+
+import '../controllers/detail_aduan_selesai_controller.dart';
+
+class DetailAduanSelesaiView extends GetView<DetailAduanSelesaiController> {
+  final detlC = Get.put(DetailAduanSelesaiController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Detail Aduan',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-        backgroundColor: Colors.white,
-        leading: const BackButton(color: Colors.black),
-        elevation: 0,
-      ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: const BackButton(color: Colors.black),
+          title: const Text('Aduan Anda',
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black))),
       body: FutureBuilder<DocumentSnapshot<Object?>>(
         future: controller.getData(Get.arguments),
         builder: ((context, snapshot) {
@@ -29,9 +29,12 @@ class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(
+                      height: 75,
+                    ),
                     data["photoUrl"] != "null"
                         ? Image.network(data["photoUrl"])
-                        : Text("Tidak ada gambar"),
+                        : Center(child: Text("Tidak ada gambar")),
                     const SizedBox(
                       height: 16,
                     ),
@@ -171,35 +174,18 @@ class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
                     const SizedBox(
                       height: 14,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                      ),
-                      onPressed: () => Get.toNamed(RouteName.DISPOSISIKAN),
-                      child: const Text(
-                        'LAPORKAN ADUAN KE INSTANSI',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    const Text(
+                      "STATUS ADUAN",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                      ),
-                      onPressed: () => data["status"] == "Selesai"
-                          ? null
-                          : controller.editAduan(Get.arguments),
-                      child: const Text(
-                        'SELESAIKAN ADUAN',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      data["status"],
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],

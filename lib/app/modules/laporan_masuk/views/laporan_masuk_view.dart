@@ -8,6 +8,7 @@ import '../controllers/laporan_masuk_controller.dart';
 
 class LaporanMasukView extends GetView<LaporanMasukController> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final laporanMasC = Get.put(LaporanMasukController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

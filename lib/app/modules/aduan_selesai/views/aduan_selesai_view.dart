@@ -97,7 +97,7 @@ class AduanSelesaiView extends GetView<AduanSelesaiController> {
                                   children: [
                                     TextButton(
                                       onPressed: () => Get.toNamed(
-                                          RouteName.DetailAduanAdmin,
+                                          RouteName.DETAILADUANSELESAI,
                                           arguments: listAllAduan[index].id),
                                       child: Text("Detail Aduan"),
                                     ),

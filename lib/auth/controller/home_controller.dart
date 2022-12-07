@@ -9,6 +9,12 @@ class HomePageController extends GetxController {
   @override
   void onInit() {
     nameC = TextEditingController();
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    nameC = TextEditingController();
     super.onClose();
   }
 

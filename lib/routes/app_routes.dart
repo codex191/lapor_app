@@ -19,4 +19,7 @@ abstract class RouteName {
   static const PERTANYAAN = '/pertanyaan-page';
   static const LAPORANMASUK = '/laporan-masuk-page';
   static const LAPORANSELESAI = '/aduan-selesai-page';
+  static const ADMINHOME = '/admin-home';
+  static const DETAILADUANSELESAI = '/detail-aduan-selesai-page';
+  static const DISPOSISIKAN = '/disposisikan-page';
 }

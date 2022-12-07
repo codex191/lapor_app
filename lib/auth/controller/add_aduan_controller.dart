@@ -25,6 +25,7 @@ class AddAduan extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseStorage storage = FirebaseStorage.instance;
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final authC = Get.find<AuthController>();
 
   UserCredential? userCredential;

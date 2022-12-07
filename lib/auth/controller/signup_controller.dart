@@ -4,8 +4,15 @@ import 'package:flutter/material.dart';
 class SignupController extends GetxController {
   final RxBool obscureText = true.obs;
   final RxBool agree = false.obs;
-  TextEditingController emailC = TextEditingController();
-  TextEditingController passC = TextEditingController();
+  late TextEditingController emailC;
+  late TextEditingController passC;
+
+  @override
+  void onInit() {
+    emailC = TextEditingController();
+    passC = TextEditingController();
+    super.onInit();
+  }
 
   @override
   void onClose() {

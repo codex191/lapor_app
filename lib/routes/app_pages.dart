@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:lapor_app/app/modules/aduan_anda/views/aduan_anda_view.dart';
 import 'package:lapor_app/app/modules/aduan_selesai/views/aduan_selesai_view.dart';
+import 'package:lapor_app/app/modules/detail_aduan_selesai/views/detail_aduan_selesai_view.dart';
+import 'package:lapor_app/app/modules/disposisikan/views/disposisikan_view.dart';
+import 'package:lapor_app/app/modules/home_admin/views/home_admin_view.dart';
 import 'package:lapor_app/app/modules/instansi/views/instansi_view.dart';
 import 'package:lapor_app/app/modules/laporan/views/laporan_view.dart';
 import 'package:lapor_app/app/modules/laporan_masuk/views/laporan_masuk_view.dart';
@@ -102,6 +105,18 @@ class AppPages {
     GetPage(
       name: RouteName.LAPORANSELESAI,
       page: () => AduanSelesaiView(),
+    ),
+    GetPage(
+      name: RouteName.ADMINHOME,
+      page: () => HomeAdminView(),
+    ),
+    GetPage(
+      name: RouteName.DETAILADUANSELESAI,
+      page: () => DetailAduanSelesaiView(),
+    ),
+    GetPage(
+      name: RouteName.DISPOSISIKAN,
+      page: () => DisposisikanView(),
     ),
   ];
 }
