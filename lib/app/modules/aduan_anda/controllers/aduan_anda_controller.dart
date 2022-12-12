@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:lapor_app/auth/auth_controller.dart';
 
@@ -15,7 +16,8 @@ class AduanAndaController extends GetxController {
   Stream<QuerySnapshot<Object?>> streamData() {
     Query aduan = firestore
         .collection("aduan")
-        .where("pengirim", isEqualTo: authC.user.value.email);
+        .where("pengirim", isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .orderBy("status", descending: true);
     return aduan.snapshots();
   }
 

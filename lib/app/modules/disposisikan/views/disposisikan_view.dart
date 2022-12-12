@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import '../controllers/disposisikan_controller.dart';
 
 class DisposisikanView extends GetView<DisposisikanController> {
+  final dispoC = Get.put(DisposisikanController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class DisposisikanView extends GetView<DisposisikanController> {
             Container(
               alignment: Alignment.center,
               child: Lottie.network(
-                  'https://assets10.lottiefiles.com/packages/lf20_px0ntw70.json',
+                  'https://assets9.lottiefiles.com/packages/lf20_un7IpQ.json',
                   height: 300,
                   width: 300),
             ),
@@ -32,27 +33,16 @@ class DisposisikanView extends GetView<DisposisikanController> {
               height: 16,
             ),
             ElevatedButton(
-              child: Text("WHATSAPP"),
+              child: Text("Daftar Email Instansi"),
               onPressed: (() {
-                controller.launchURL('https://wa.link/lj2ecn');
+                controller.launchURL(
+                    'https://docs.google.com/spreadsheets/d/1YFt-HIydGzAJLDLrdLVbhKbzxWfO_MBQj-OVWXGUgS8/edit?usp=sharing');
               }),
             ),
             ElevatedButton(
-              child: Text("TELEPON"),
+              child: Text("DISPOSISIKAN"),
               onPressed: (() {
-                controller.call('+6281340866989');
-              }),
-            ),
-            ElevatedButton(
-              child: Text("SMS"),
-              onPressed: (() {
-                controller.sendSMS('+6281340866989');
-              }),
-            ),
-            ElevatedButton(
-              child: Text("EMAIL"),
-              onPressed: (() {
-                controller.sendEmaili('agustianbrian25@gmail.com');
+                controller.sendEmaili('');
               }),
             ),
             Expanded(child: Text("")),

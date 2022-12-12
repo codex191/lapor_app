@@ -1,6 +1,11 @@
 import 'package:get/get.dart';
+
 import 'package:lapor_app/app/modules/aduan_anda/views/aduan_anda_view.dart';
+import 'package:lapor_app/app/modules/aduan_proses/bindings/aduan_proses_binding.dart';
+import 'package:lapor_app/app/modules/aduan_proses/views/aduan_proses_view.dart';
 import 'package:lapor_app/app/modules/aduan_selesai/views/aduan_selesai_view.dart';
+import 'package:lapor_app/app/modules/detail_aduan_proses/bindings/detail_aduan_proses_binding.dart';
+import 'package:lapor_app/app/modules/detail_aduan_proses/views/detail_aduan_proses_view.dart';
 import 'package:lapor_app/app/modules/detail_aduan_selesai/views/detail_aduan_selesai_view.dart';
 import 'package:lapor_app/app/modules/disposisikan/views/disposisikan_view.dart';
 import 'package:lapor_app/app/modules/home_admin/views/home_admin_view.dart';
@@ -9,6 +14,7 @@ import 'package:lapor_app/app/modules/laporan/views/laporan_view.dart';
 import 'package:lapor_app/app/modules/laporan_masuk/views/laporan_masuk_view.dart';
 import 'package:lapor_app/app/modules/login_admin/views/login_admin_view.dart';
 import 'package:lapor_app/app/modules/pertanyaan/views/pertanyaan_view.dart';
+import 'package:lapor_app/routes/app_routes.dart';
 import 'package:lapor_app/ui/about_page.dart';
 import 'package:lapor_app/ui/admin/detail_aduan_page_admin.dart';
 import 'package:lapor_app/ui/admin/home_page_admin.dart';
@@ -22,7 +28,6 @@ import 'package:lapor_app/ui/user/edit_profile_page.dart';
 import 'package:lapor_app/ui/user/home_page.dart';
 import 'package:lapor_app/ui/user/profile_page.dart';
 import 'package:lapor_app/ui/user/settings_page.dart';
-import 'package:lapor_app/routes/app_routes.dart';
 
 class AppPages {
   static final pages = [
@@ -117,6 +122,16 @@ class AppPages {
     GetPage(
       name: RouteName.DISPOSISIKAN,
       page: () => DisposisikanView(),
+    ),
+    GetPage(
+      name: RouteName.ADUAN_PROSES,
+      page: () => AduanProsesView(),
+      binding: AduanProsesBinding(),
+    ),
+    GetPage(
+      name: RouteName.DETAIL_ADUAN_PROSES,
+      page: () => DetailAduanProsesView(),
+      binding: DetailAduanProsesBinding(),
     ),
   ];
 }

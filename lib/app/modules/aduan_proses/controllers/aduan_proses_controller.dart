@@ -1,23 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:lapor_app/auth/auth_controller.dart';
 
-class LaporanMasukController extends GetxController {
-  //TODO: Implement LaporanMasukController
+class AduanProsesController extends GetxController {
+  //TODO: Implement AduanProsesController
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final authC = Get.find<AuthController>();
 
-  Future<QuerySnapshot<Object?>> getData() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    CollectionReference aduan = firestore.collection("aduan");
-
-    return aduan.get();
+  Future<DocumentSnapshot<Object?>> getData(String docID) async {
+    DocumentReference docRef = firestore.collection("aduan").doc(docID);
+    return docRef.get();
   }
 
   Stream<QuerySnapshot<Object?>> streamData() {
-    Query aduan = firestore
-        .collection("aduan")
-        .where("status", isEqualTo: "Belum selesai");
-
+    Query aduan =
+        firestore.collection("aduan").where("status", isEqualTo: "Diproses");
     return aduan.snapshots();
   }
 
@@ -27,10 +25,10 @@ class LaporanMasukController extends GetxController {
     try {
       Get.defaultDialog(
         title: "Peringatan",
-        middleText: "Apakah Anda yakin ingin memproses aduan ini?",
+        middleText: "Apakah Anda yakin ingin menyelesaikan aduan ini?",
         onConfirm: (() async {
           await docData.update({
-            "status": "Diproses",
+            "status": "Selesai",
           });
           Get.back();
         }),
@@ -56,9 +54,6 @@ class LaporanMasukController extends GetxController {
   }
 
   @override
-  void onClose() {
-    super.onClose();
-  }
-
+  void onClose() {}
   void increment() => count.value++;
 }

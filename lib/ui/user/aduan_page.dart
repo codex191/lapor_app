@@ -340,7 +340,10 @@ class AduanPage extends GetView<AddAduan> {
                               controller.isiLaporanC.text,
                               controller.urlPhoto.toString(),
                             )
-                          : null,
+                          : Get.defaultDialog(
+                              title: "Gagal",
+                              middleText: "Harap isi form yang kosong",
+                            ),
                       child: const Text(
                         'Adukan',
                         style: TextStyle(

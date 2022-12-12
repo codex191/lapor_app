@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
-import 'package:lapor_app/auth/controller/detail_aduan_admin_controller.dart';
 import 'package:lapor_app/routes/app_routes.dart';
 
-class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
-  final detAduanAd = Get.put(DetailAduanAdminController());
+import '../controllers/detail_aduan_proses_controller.dart';
+
+class DetailAduanProsesView extends GetView<DetailAduanProsesController> {
+  const DetailAduanProsesView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,11 +175,9 @@ class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
                       ),
-                      onPressed: () => data["status"] == "Selesai"
-                          ? null
-                          : controller.editAduanProses(Get.arguments),
+                      onPressed: () => Get.toNamed(RouteName.DISPOSISIKAN),
                       child: const Text(
-                        'PROSES LAPORAN ADUAN',
+                        'LAPORKAN ADUAN KE INSTANSI',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -197,7 +195,25 @@ class DetailAduanAdminPage extends GetView<DetailAduanAdminController> {
                           ? null
                           : controller.editAduanTolak(Get.arguments),
                       child: const Text(
-                        'TOLAK ADUAN',
+                        'TOLAK LAPORAN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                      ),
+                      onPressed: () => data["status"] == "Selesai"
+                          ? null
+                          : controller.editAduan(Get.arguments),
+                      child: const Text(
+                        'SELESAIKAN ADUAN',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

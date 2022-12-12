@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-class DetailAduanAdminController extends GetxController {
-  //TODO: Implement AduanAndaController
+class DetailAduanProsesController extends GetxController {
+  //TODO: Implement DetailAduanProsesController
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<DocumentSnapshot<Object?>> getData(String docID) async {
@@ -16,33 +17,10 @@ class DetailAduanAdminController extends GetxController {
     try {
       Get.defaultDialog(
         title: "Peringatan",
-        middleText: "Apakah Anda yakin ingin memproses aduan ini?",
+        middleText: "Apakah Anda yakin ingin menyelesaikan aduan ini?",
         onConfirm: (() async {
           await docData.update({
-            "status": "Diproses",
-          });
-          Get.back();
-        }),
-        onCancel: () {},
-      );
-    } catch (e) {
-      Get.defaultDialog(
-        title: "Terjadi kesalahan",
-        middleText: "Tidak dapat menyelesaikan aduan",
-      );
-    }
-  }
-
-  void editAduanProses(String docID) async {
-    DocumentReference docData = firestore.collection("aduan").doc(docID);
-
-    try {
-      Get.defaultDialog(
-        title: "Peringatan",
-        middleText: "Apakah Anda yakin ingin memproses aduan ini?",
-        onConfirm: (() async {
-          await docData.update({
-            "status": "Diproses",
+            "status": "Selesai",
           });
           Get.back();
         }),

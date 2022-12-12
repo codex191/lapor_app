@@ -230,6 +230,11 @@ class _HomePageAdminState extends State<HomePageAdmin> {
             ),
             ListTile(
               leading: const Icon(Icons.comment),
+              title: const Text('Aduan Proses'),
+              onTap: () => Get.toNamed(RouteName.ADUAN_PROSES),
+            ),
+            ListTile(
+              leading: const Icon(Icons.comment),
               title: const Text('Aduan Selesai'),
               onTap: () => Get.toNamed(RouteName.LAPORANSELESAI),
             ),

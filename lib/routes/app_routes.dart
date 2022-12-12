@@ -22,4 +22,6 @@ abstract class RouteName {
   static const ADMINHOME = '/admin-home';
   static const DETAILADUANSELESAI = '/detail-aduan-selesai-page';
   static const DISPOSISIKAN = '/disposisikan-page';
+  static const ADUAN_PROSES = '/aduan-proses';
+  static const DETAIL_ADUAN_PROSES = '/detail-aduan-proses';
 }
