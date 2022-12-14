@@ -16,8 +16,8 @@ class AduanAndaController extends GetxController {
   Stream<QuerySnapshot<Object?>> streamData() {
     Query aduan = firestore
         .collection("aduan")
-        .where("pengirim", isEqualTo: FirebaseAuth.instance.currentUser!.email)
-        .orderBy("status", descending: true);
+        .orderBy("tanggal", descending: true)
+        .where("pengirim", isEqualTo: FirebaseAuth.instance.currentUser!.email);
     return aduan.snapshots();
   }
 

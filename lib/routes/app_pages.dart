@@ -10,6 +10,8 @@ import 'package:lapor_app/app/modules/detail_aduan_selesai/views/detail_aduan_se
 import 'package:lapor_app/app/modules/disposisikan/views/disposisikan_view.dart';
 import 'package:lapor_app/app/modules/home_admin/views/home_admin_view.dart';
 import 'package:lapor_app/app/modules/instansi/views/instansi_view.dart';
+import 'package:lapor_app/app/modules/jawaban_page/bindings/jawaban_page_binding.dart';
+import 'package:lapor_app/app/modules/jawaban_page/views/jawaban_page_view.dart';
 import 'package:lapor_app/app/modules/laporan/views/laporan_view.dart';
 import 'package:lapor_app/app/modules/laporan_masuk/views/laporan_masuk_view.dart';
 import 'package:lapor_app/app/modules/login_admin/views/login_admin_view.dart';
@@ -132,6 +134,11 @@ class AppPages {
       name: RouteName.DETAIL_ADUAN_PROSES,
       page: () => DetailAduanProsesView(),
       binding: DetailAduanProsesBinding(),
+    ),
+    GetPage(
+      name: RouteName.JAWABAN_PAGE,
+      page: () => JawabanPageView(),
+      binding: JawabanPageBinding(),
     ),
   ];
 }

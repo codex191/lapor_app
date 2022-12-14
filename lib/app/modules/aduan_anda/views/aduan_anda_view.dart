@@ -78,7 +78,7 @@ class AduanAndaView extends GetView<AduanAndaController> {
                               Row(
                                 children: [
                                   Text(
-                                    "Status :",
+                                    "Status : ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),

@@ -15,7 +15,7 @@ class DetailAduanSelesaiView extends GetView<DetailAduanSelesaiController> {
           elevation: 0,
           backgroundColor: Colors.white,
           leading: const BackButton(color: Colors.black),
-          title: const Text('Aduan Anda',
+          title: const Text('Aduan Selesai',
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.black))),
       body: FutureBuilder<DocumentSnapshot<Object?>>(
@@ -187,6 +187,24 @@ class DetailAduanSelesaiView extends GetView<DetailAduanSelesaiController> {
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    ElevatedButton(
+                      child: Text("KIRIM JAWABAN EMAIL"),
+                      onPressed: (() {
+                        controller.sendEmaili(data["pengirim"]);
+                      }),
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    ElevatedButton(
+                      child: Text("KIRIM JAWABAN SMS"),
+                      onPressed: (() {
+                        controller.sendSMS(data["notelp"]);
+                      }),
                     ),
                   ],
                 ),

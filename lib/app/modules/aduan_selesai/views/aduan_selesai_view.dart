@@ -101,10 +101,10 @@ class AduanSelesaiView extends GetView<AduanSelesaiController> {
                                           arguments: listAllAduan[index].id),
                                       child: Text("Detail Aduan"),
                                     ),
-                                    TextButton(
-                                      onPressed: null,
-                                      child: Text("Selesaikan"),
-                                    ),
+                                    // TextButton(
+                                    //   onPressed: null,
+                                    //   child: Text("Berikan Jawaban"),
+                                    // ),
                                   ],
                                 ),
                               )

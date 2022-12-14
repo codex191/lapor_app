@@ -24,4 +24,5 @@ abstract class RouteName {
   static const DISPOSISIKAN = '/disposisikan-page';
   static const ADUAN_PROSES = '/aduan-proses';
   static const DETAIL_ADUAN_PROSES = '/detail-aduan-proses';
+  static const JAWABAN_PAGE = '/jawaban-page';
 }

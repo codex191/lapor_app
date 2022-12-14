@@ -87,7 +87,7 @@ class AduanPage extends GetView<AddAduan> {
                       controller: controller.alamatC,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        labelText: 'Alamat',
+                        labelText: 'Alamat Kejadian',
                         border: OutlineInputBorder(),
                         // errorText: controller.validate.value
                         //     ? 'Form tidak boleh kosong'
@@ -106,7 +106,7 @@ class AduanPage extends GetView<AddAduan> {
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
                           icon: Icon(Icons.calendar_today_rounded),
-                          labelText: "Select Date"),
+                          labelText: "Tanggal Kejadian"),
                       onTap: () async {
                         DateTime? pickdate = await showDatePicker(
                             context: context,
@@ -266,7 +266,7 @@ class AduanPage extends GetView<AddAduan> {
                                       ),
                                     ],
                                   )
-                                : Text("Tidak Ada Gambar"),
+                                : Text(""),
                           ),
                           TextButton(
                               onPressed: () => controller.selectImage(),
@@ -341,8 +341,9 @@ class AduanPage extends GetView<AddAduan> {
                               controller.urlPhoto.toString(),
                             )
                           : Get.defaultDialog(
-                              title: "Gagal",
-                              middleText: "Harap isi form yang kosong",
+                              title: "Gagal Mengirimkan Aduan",
+                              middleText:
+                                  "Harap isi form yang kosong dan centang checkbox",
                             ),
                       child: const Text(
                         'Adukan',

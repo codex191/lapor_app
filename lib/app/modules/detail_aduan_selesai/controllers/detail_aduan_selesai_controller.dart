@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailAduanSelesaiController extends GetxController {
   //TODO: Implement DetailAduanSelesaiController
@@ -8,6 +9,14 @@ class DetailAduanSelesaiController extends GetxController {
   Future<DocumentSnapshot<Object?>> getData(String docID) async {
     DocumentReference docRef = firestore.collection("aduan").doc(docID);
     return docRef.get();
+  }
+
+  Future<void> sendEmaili(String email) async {
+    await launch('mailto:$email');
+  }
+
+  Future<void> sendSMS(String phoneNumber) async {
+    await launch('sms:$phoneNumber');
   }
 
   void editAduan(String docID) async {
